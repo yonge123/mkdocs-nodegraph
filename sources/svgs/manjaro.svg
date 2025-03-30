@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200px" height="200px" viewBox="0 0 256 256">
+   <rect
+   style="fill: #efefef; stroke-width: 10.2"
+   id="rect1"
+   width="256"
+   height="256"
+   x="0"
+   y="0" />
+   <path
+   fill="#35bf5c"
+   d="M 244.97909,11.020911 V 244.97909 H 176.5052 V 11.020911 Z M 162.23466,93.761682 V 244.97909 H 93.760769 V 93.761682 Z m 0,-82.740771 V 79.494804 H 79.261759 V 244.97909 H 11.020911 V 11.020911 Z"
+   id="path1"
+   style="stroke-width:0.913899" />
+</svg>

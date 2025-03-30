@@ -1,0 +1,770 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 1400px;
+                 background-color: #222222;
+                 position: absolute;
+                 border: 1px solid #222222;
+                 float: left;
+                 z-index: 1;
+             }
+
+             
+
+             
+
+             
+
+
+             body {
+                 margin: 0;
+                 padding: 0;
+             }
+
+             .card {
+                display: absolute;
+                min-height: 100vh;
+            }
+            
+            .left-panel {
+                background: #222222a6;
+                width: 210px;
+                position: absolute;
+                z-index: 2;
+                border-radius: 10px;
+              }
+              
+              .left-panel.collapsed {
+                width: 30px;
+                background: #22222200;
+            }
+            .left-panel.collapsed .panel-content {
+                opacity: 0;
+                visibility: hidden;
+            }
+            .collapse-btn {
+                position: absolute;
+                width: 30px;
+                height: 30px;
+                right: 0%;
+                padding: 2px 2px;
+                color: whitesmoke;
+                background: #222222a6;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: 0.3s;
+                user-select: none;
+            }
+
+            .collapse-btn:hover {
+                background: #747988;
+            }
+
+            .panel-content {
+                flex-direction: column;
+                padding: 5px;
+                gap: 10px;
+                margin-bottom: 20px;
+                margin-top: 30px;
+            }
+            
+            .physics-btn {
+              font-size: 13px;
+              position: relative;
+              z-index: 1000;
+              padding: 9px 9px;
+              margin: 3px;
+              background-color: hsl(122, 39%, 49%);
+              color: white;
+              border: none;
+              border-radius: 2px;
+              width: 200px;
+              cursor: pointer;
+            }
+
+            .physics-btn:hover {
+              background-color:hsl(121, 47%, 57%);
+            }
+
+            .save-btn {
+              font-size: 13px;
+              position: relative;
+              z-index: 1000;
+              padding: 9px 9px;
+              margin: 3px;
+              background-color: hsl(194, 42%, 45%);
+              color: white;
+              border: none;
+              border-radius: 2px;
+              width: 200px;
+              cursor: pointer;
+            }
+
+            .save-btn:hover {
+              background-color: hsl(194, 41%, 53%);
+            }
+
+            .reset-btn {
+              font-size: 14px;
+              position: relative;
+              z-index: 1000;
+              padding: 9px 9px;
+              margin: 3px;
+              background-color: hsl(0, 0%, 40%);
+              color: white;
+              border: none;
+              width: 200px;
+              border-radius: 2px;
+              cursor: pointer;
+            }
+
+            .reset-btn:hover {
+              background-color: hsl(0, 0%, 50%);
+            }
+
+            input {
+                accent-color: gray;
+            }
+
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+
+            <div class="left-panel" id="leftPanel">
+                <button class="collapse-btn" onclick="togglePanel('leftPanel')"> 
+                    <svg width="28px" height="28px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M 11 3.9 V 20.3 M 6 7.4 H 8 M 6 10.9 H 8 M 6 14.5 H 8 M 6.2 20.3 H 17.8 C 18.9 20.3 19.5 20.3 19.9 20.1 C 20.3 19.8 20.6 19.5 20.8 19 C 21 18.6 21 17.9 21 16.6 V 7.7 C 21 6.4 21 5.7 20.8 5.2 C 20.6 4.7 20.3 4.4 19.9 4.1 C 19.5 3.9 18.9 3.9 17.8 3.9 H 6.2 C 5.1 3.9 4.5 3.9 4.1 4.1 C 3.7 4.4 3.4 4.7 3.2 5.2 C 3 5.7 3 6.4 3 7.7 V 16.6 C 3 17.9 3 18.6 3.2 19 C 3.4 19.5 3.7 19.8 4.1 20.1 C 4.5 20.3 5.1 20.3 6.2 20.3 Z" stroke="whitesmoke" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+
+                <div class="panel-content">
+
+                    <button class="physics-btn" id="btn_physics" >Physics: ON</button>
+                    <button class="save-btn" id="btn_save_node_positions" >Save</button>
+                    <button class="reset-btn" id="btn_reset_preferences" >Reset</button>
+
+                    <span id="text_gravitationalConstant" style="
+                        opacity: 0.9;
+                        top: 0px;
+                        left: 0px;
+                        position: relative;
+                        font-size: 16px;
+                        font-weight: bold;
+                        color: #4CAF50;">
+                        Gravitational Constant
+                    </span>
+                    <input id="slider_gravitationalConstant" 
+                        type="range"
+                        min="-5000"
+                        max="1100"
+                        style="
+                        color: gray;
+                        opacity: 0.5;
+                        width: 200px;">
+                    </input>
+
+                    <span id="text_centralGravity" style="
+                        opacity: 0.9;
+                        top: 0px;
+                        left: 0px;
+                        position: relative;
+                        font-size: 16px;
+                        font-weight: bold;
+                        color: #4CAF50;">
+                        CentralGravity
+                    </span>
+                    <input id="slider_centralGravity" 
+                        type="range"
+                        min="0"
+                        max="100"
+                        style="
+                        opacity: 0.5;
+                        width: 200px;">
+                    </input>
+
+                    <span id="text_springConstant" style="
+                        opacity: 0.9;
+                        top: 0px;
+                        left: 0px;
+                        position: relative;
+                        font-size: 16px;
+                        font-weight: bold;
+                        color: #4CAF50;">
+                        Spring Constant
+                    </span>
+                    <input id="slider_springConstant" 
+                        type="range"
+                        min="0"
+                        max="100"
+                        style="
+                        opacity: 0.5;
+                        width: 200px;">
+                    </input>
+                    
+                    <span id="text_damping" style="
+                        opacity: 0.9;
+                        top: 0px;
+                        left: 0px;
+                        position: relative;
+                        font-size: 16px;
+                        font-weight: bold;
+                        color: #4CAF50;">
+                        Damping
+                    </span>
+                    <input id="slider_damping" 
+                        type="range"
+                        min="0"
+                        max="50"
+                        style="
+                        opacity: 0.5;
+                        width: 200px;">
+                    </input>
+                    
+                    <span id="text_fontSize" style="
+                        opacity: 0.9;
+                        top: 0px;
+                        left: 0px;
+                        position: relative;
+                        font-size: 16px;
+                        font-weight: bold;
+                        color: #4CAF50;">
+                        Font Size
+                    </span>
+                    <input id="slider_fontSize" 
+                        type="range"
+                        min="30"
+                        max="200"
+                        style="
+                        opacity: 0.5;
+                        width: 200px;">
+                    </input>
+                    
+                    <span id="text_nodeSize" style="
+                        opacity: 0.9;
+                        top: 0px;
+                        left: 0px;
+                        position: relative;
+                        font-size: 16px;
+                        font-weight: bold;
+                        color: #4CAF50;">
+                        Node Size
+                    </span>
+                    <input id="slider_nodeSize" 
+                        type="range"
+                        min="1"
+                        max="100"
+                        style="
+                        opacity: 0.5;
+                        width: 200px;">
+                    </input>
+
+                    <span id="text_edgeLength" style="
+                        opacity: 0.9;
+                        top: 0px;
+                        left: 0px;
+                        position: relative;
+                        font-size: 16px;
+                        font-weight: bold;
+                        color: #4CAF50;">
+                        Edge Length
+                    </span>
+                    <input id="slider_edgeLength" 
+                        type="range"
+                        min="1"
+                        max="100"
+                        style="
+                        opacity: 0.5;
+                        width: 200px;">
+                    </input>
+
+
+                    <span id="text_edgeWidth" style="
+                        opacity: 0.9;
+                        top: 0px;
+                        left: 0px;
+                        position: relative;
+                        font-size: 16px;
+                        font-weight: bold;
+                        color: #4CAF50;">
+                        Edge Width
+                    </span>
+                    <input id="slider_edgeWidth" 
+                        type="range"
+                        min="1"
+                        max="100"
+                        style="
+                        opacity: 0.5;
+                        width: 200px;">
+                    </input>
+                    
+                </div>
+                </div>
+
+
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+       
+        
+
+        <script>
+            function togglePanel(panelId) {
+                const panel = document.getElementById(panelId);
+                panel.classList.toggle('collapsed');
+                
+                //// Update button text based on panel state
+                // const button = panel.querySelector('.collapse-btn');
+                // if (panelId === 'leftPanel') {
+                //     button.image = "./sources/svgs/sidebar.svg";
+                //     // button.textContent = panel.classList.contains('collapsed') ? '' : '';
+                // } else {
+                //     button.image = "./sources/svgs/sidebar.svg";
+                //     // button.textContent = panel.classList.contains('collapsed') ? '' : '';
+                // }
+            }
+
+            togglePanel('leftPanel');
+        </script>
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                // parsing and collecting nodes and edges from the python
+                nodes = new vis.DataSet([{"borderWidth": 2, "color": "#E9967A", "font": {"color": "#E9967A"}, "id": 1, "image": "", "label": "index.md", "opacity": 1, "shape": "dot", "size": 58, "url": "index.html"}, {"borderWidth": 2, "color": "#F0E68C", "font": {"color": "#F0E68C"}, "id": 19, "image": "", "label": "__CG_Software.md", "opacity": 1, "shape": "dot", "size": 58, "url": "CG_Software/__CG_Software.html"}, {"borderWidth": 2, "color": "#DDA0DD", "font": {"color": "#DDA0DD"}, "id": 36, "image": "", "label": "__OS.md", "opacity": 1, "shape": "dot", "size": 58, "url": "OS/__OS.html"}, {"borderWidth": 2, "color": "#FFDAB9", "font": {"color": "#FFDAB9"}, "id": 12, "image": "", "label": "__2D.md", "opacity": 1, "shape": "dot", "size": 58, "url": "2D/__2D.html"}, {"borderWidth": 2, "color": "#9CA3AF", "font": {"color": "#9CA3AF"}, "id": 13, "image": "", "label": "__3D.md", "opacity": 1, "shape": "dot", "size": 54, "url": "3D/__3D.html"}, {"borderWidth": 2, "color": "#ffc107", "font": {"color": "#ffc107"}, "id": 32, "image": "sources/svgs/linux.svg", "label": "Linux_OS.md", "opacity": 1, "shape": "image", "size": 62, "url": "OS/Linux_OS.html"}, {"borderWidth": 2, "color": "#9CA3AF", "font": {"color": "#9CA3AF"}, "id": 35, "image": "", "label": "Window_OS.md", "opacity": 1, "shape": "dot", "size": 50, "url": "OS/Window_OS.html"}, {"borderWidth": 2, "color": "#FF7F50", "font": {"color": "#FF7F50"}, "id": 26, "image": "", "label": "__Image.md", "opacity": 1, "shape": "dot", "size": 74, "url": "Image/__Image.html"}, {"borderWidth": 2, "color": "#6495ED", "font": {"color": "#6495ED"}, "id": 38, "image": "", "label": "__Video.md", "opacity": 1, "shape": "dot", "size": 74, "url": "Video/__Video.html"}, {"borderWidth": 2, "color": "#9CA3AF", "font": {"color": "#9CA3AF"}, "id": 37, "image": "sources/icons/Qimgv_Icon.png", "label": "__qimgv.md", "opacity": 1, "shape": "image", "size": 50, "url": "qimgv/__qimgv.html"}, {"borderWidth": 2, "color": "#9CA3AF", "font": {"color": "#9CA3AF"}, "id": 14, "image": "sources/icons/Beeref_Icon.png", "label": "__BeeRef.md", "opacity": 1, "shape": "image", "size": 50, "url": "BeeRef/__BeeRef.html"}, {"borderWidth": 2, "color": "#9400D3", "font": {"color": "#9400D3"}, "id": 20, "image": "", "label": "__Diagram.md", "opacity": 1, "shape": "dot", "size": 58, "url": "Diagram/__Diagram.html"}, {"borderWidth": 2, "color": "#9CA3AF", "font": {"color": "#9CA3AF"}, "id": 24, "image": "sources/svgs/gimp.svg", "label": "__Gimp.md", "opacity": 1, "shape": "image", "size": 50, "url": "Gimp/__Gimp.html"}, {"borderWidth": 2, "color": "#9CA3AF", "font": {"color": "#9CA3AF"}, "id": 27, "image": "sources/svgs/inkscape.svg", "label": "__Inkscape.md", "opacity": 1, "shape": "image", "size": 50, "url": "Inkscape/__Inkscape.html"}, {"borderWidth": 2, "color": "#9CA3AF", "font": {"color": "#9CA3AF"}, "id": 29, "image": "sources/svgs/krita.svg", "label": "__Krita.md", "opacity": 1, "shape": "image", "size": 50, "url": "Krita/__Krita.html"}, {"borderWidth": 2, "color": "#9CA3AF", "font": {"color": "#9CA3AF"}, "id": 39, "image": "sources/icons/VLC_Icon.png", "label": "__VLC_Player.md", "opacity": 1, "shape": "image", "size": 50, "url": "VLC_Player/__VLC_Player.html"}, {"borderWidth": 2, "color": "#9CA3AF", "font": {"color": "#9CA3AF"}, "id": 40, "image": "sources/icons/XMediaRecode_Icon.png", "label": "__XMediaRecode.md", "opacity": 1, "shape": "image", "size": 50, "url": "XMediaRecode/__XMediaRecode.html"}, {"borderWidth": 2, "color": "#9CA3AF", "font": {"color": "#9CA3AF"}, "id": 21, "image": "sources/svgs/djv.svg", "label": "__DJV.md", "opacity": 1, "shape": "image", "size": 50, "url": "DJV/__DJV.html"}, {"borderWidth": 2, "color": "#9CA3AF", "font": {"color": "#9CA3AF"}, "id": 25, "image": "sources/icons/HandBrake_Icon.png", "label": "__HandBrake.md", "opacity": 1, "shape": "image", "size": 50, "url": "HandBrake/__HandBrake.html"}, {"borderWidth": 2, "color": "#9CA3AF", "font": {"color": "#9CA3AF"}, "id": 28, "image": "sources/svgs/kdenlive.svg", "label": "__Kdenlive.md", "opacity": 1, "shape": "image", "size": 50, "url": "Kdenlive/__Kdenlive.html"}, {"borderWidth": 2, "color": "#9CA3AF", "font": {"color": "#9CA3AF"}, "id": 30, "image": "sources/icons/OBS_Studio_Icon.png", "label": "__OBS_Studio.md", "opacity": 1, "shape": "image", "size": 50, "url": "OBS_Studio/__OBS_Studio.html"}, {"borderWidth": 2, "color": "#ea7600", "font": {"color": "#ea7600"}, "id": 18, "image": "sources/svgs/blender.svg", "label": "__Blender.md", "opacity": 1, "shape": "image", "size": 62, "url": "Blender/__Blender.html"}, {"borderWidth": 2, "color": "#9CA3AF", "font": {"color": "#9CA3AF"}, "id": 16, "image": "", "label": "blender_extensions.md", "opacity": 1, "shape": "dot", "size": 50, "url": "Blender/blender_extensions.html"}, {"borderWidth": 2, "color": "#9CA3AF", "font": {"color": "#9CA3AF"}, "id": 17, "image": "", "label": "fake_bpy_module.md", "opacity": 1, "shape": "dot", "size": 50, "url": "Blender/fake_bpy_module.html"}, {"borderWidth": 2, "color": "#9CA3AF", "font": {"color": "#9CA3AF"}, "id": 15, "image": "", "label": "blender_addons.md", "opacity": 1, "shape": "dot", "size": 50, "url": "Blender/blender_addons.html"}, {"borderWidth": 2, "color": "#9CA3AF", "font": {"color": "#9CA3AF"}, "id": 22, "image": "sources/svgs/drawio.svg", "label": "__Drawio.md", "opacity": 1, "shape": "image", "size": 50, "url": "Drawio/__Drawio.html"}, {"borderWidth": 2, "color": "#9CA3AF", "font": {"color": "#9CA3AF"}, "id": 23, "image": "sources/svgs/excalidraw.svg", "label": "__Excalidraw.md", "opacity": 1, "shape": "image", "size": 50, "url": "Excalidraw/__Excalidraw.html"}, {"borderWidth": 2, "color": "#9CA3AF", "font": {"color": "#9CA3AF"}, "id": 31, "image": "sources/svgs/fedora.svg", "label": "Fedora.md", "opacity": 1, "shape": "image", "size": 50, "url": "OS/Fedora.html"}, {"borderWidth": 2, "color": "#9CA3AF", "font": {"color": "#9CA3AF"}, "id": 33, "image": "sources/svgs/manjaro.svg", "label": "Manjaro.md", "opacity": 1, "shape": "image", "size": 50, "url": "OS/Manjaro.html"}, {"borderWidth": 2, "color": "#9CA3AF", "font": {"color": "#9CA3AF"}, "id": 34, "image": "sources/svgs/ubuntu.svg", "label": "Ubuntu.md", "opacity": 1, "shape": "image", "size": 50, "url": "OS/Ubuntu.html"}, {"borderWidth": 2, "color": "#9CA3AF", "font": {"color": "#9CA3AF"}, "id": 2, "image": "", "label": "Node_01.md", "opacity": 1, "shape": "dot", "size": 50, "url": "Node_01.html"}, {"borderWidth": 2, "color": "#9CA3AF", "font": {"color": "#9CA3AF"}, "id": 3, "image": "", "label": "Node_02.md", "opacity": 1, "shape": "dot", "size": 50, "url": "Node_02.html"}, {"borderWidth": 2, "color": "#9CA3AF", "font": {"color": "#9CA3AF"}, "id": 4, "image": "", "label": "Node_03.md", "opacity": 1, "shape": "dot", "size": 50, "url": "Node_03.html"}, {"borderWidth": 2, "color": "#9CA3AF", "font": {"color": "#9CA3AF"}, "id": 5, "image": "", "label": "Node_04.md", "opacity": 1, "shape": "dot", "size": 50, "url": "Node_04.html"}, {"borderWidth": 2, "color": "#9CA3AF", "font": {"color": "#9CA3AF"}, "id": 6, "image": "", "label": "Node_05.md", "opacity": 1, "shape": "dot", "size": 50, "url": "Node_05.html"}, {"borderWidth": 2, "color": "#9CA3AF", "font": {"color": "#9CA3AF"}, "id": 7, "image": "", "label": "Node_06.md", "opacity": 1, "shape": "dot", "size": 50, "url": "Node_06.html"}, {"borderWidth": 2, "color": "#9CA3AF", "font": {"color": "#9CA3AF"}, "id": 8, "image": "", "label": "Node_07.md", "opacity": 1, "shape": "dot", "size": 50, "url": "Node_07.html"}, {"borderWidth": 2, "color": "#9CA3AF", "font": {"color": "#9CA3AF"}, "id": 9, "image": "", "label": "Node_08.md", "opacity": 1, "shape": "dot", "size": 50, "url": "Node_08.html"}, {"borderWidth": 2, "color": "#9CA3AF", "font": {"color": "#9CA3AF"}, "id": 10, "image": "", "label": "Node_09.md", "opacity": 1, "shape": "dot", "size": 50, "url": "Node_09.html"}, {"borderWidth": 2, "color": "#9CA3AF", "font": {"color": "#9CA3AF"}, "id": 11, "image": "", "label": "Node_10.md", "opacity": 1, "shape": "dot", "size": 50, "url": "Node_10.html"}]);
+                edges = new vis.DataSet([{"color": "#F0E68C", "from": 1, "length": 135, "to": 19, "width": 12}, {"color": "#DDA0DD", "from": 1, "length": 170, "to": 36, "width": 12}, {"color": "#F0E68C", "from": 19, "length": 135, "to": 12, "width": 12}, {"color": "#F0E68C", "from": 19, "length": 170, "to": 13, "width": 12}, {"color": "#ffc107", "from": 36, "length": 180, "to": 32, "width": 12}, {"color": "#DDA0DD", "from": 36, "length": 170, "to": 35, "width": 12}, {"color": "#FF7F50", "from": 12, "length": 315, "to": 26, "width": 12}, {"color": "#6495ED", "from": 12, "length": 350, "to": 38, "width": 12}, {"color": "#FF7F50", "from": 26, "length": 315, "to": 37, "width": 12}, {"color": "#FF7F50", "from": 26, "length": 350, "to": 14, "width": 12}, {"color": "#FF7F50", "from": 26, "length": 385, "to": 20, "width": 12}, {"color": "#FF7F50", "from": 26, "length": 420, "to": 24, "width": 12}, {"color": "#FF7F50", "from": 26, "length": 455, "to": 27, "width": 12}, {"color": "#FF7F50", "from": 26, "length": 490, "to": 29, "width": 12}, {"color": "#6495ED", "from": 38, "length": 315, "to": 39, "width": 12}, {"color": "#6495ED", "from": 38, "length": 350, "to": 40, "width": 12}, {"color": "#6495ED", "from": 38, "length": 385, "to": 21, "width": 12}, {"color": "#6495ED", "from": 38, "length": 420, "to": 25, "width": 12}, {"color": "#6495ED", "from": 38, "length": 455, "to": 28, "width": 12}, {"color": "#6495ED", "from": 38, "length": 490, "to": 30, "width": 12}, {"color": "#ea7600", "from": 13, "length": 180, "to": 18, "width": 12}, {"color": "#ea7600", "from": 18, "length": 180, "to": 16, "width": 12}, {"color": "#ea7600", "from": 18, "length": 215, "to": 17, "width": 12}, {"color": "#ea7600", "from": 18, "length": 250, "to": 15, "width": 12}, {"color": "#9400D3", "from": 20, "length": 135, "to": 22, "width": 12}, {"color": "#9400D3", "from": 20, "length": 170, "to": 23, "width": 12}, {"color": "#ffc107", "from": 31, "length": 250, "to": 32, "width": 12}, {"color": "#ffc107", "from": 32, "length": 180, "to": 33, "width": 12}, {"color": "#ffc107", "from": 32, "length": 215, "to": 34, "width": 12}]);
+ 
+                nodeColors = {};
+                allNodes = nodes.get({ returnType: "Object" });
+                for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                }
+                
+                // load node positions  
+                var node_positions = {};
+                function saveNodePositions(){
+                    localStorage.setItem('node_positions', JSON.stringify(node_positions));
+                }
+                const savedPositions = localStorage.getItem('node_positions');
+                if (savedPositions) {
+                    const positions = JSON.parse(savedPositions);
+                    // Update each node with its saved po
+                    Object.keys(positions).forEach(nodeId => {
+                        if (nodeId in allNodes){
+                            allNodes[nodeId].x = positions[nodeId].x;
+                            allNodes[nodeId].y = positions[nodeId].y;
+                        }
+                    });
+                }
+
+                allEdges = edges.get({ returnType: "Object" });
+                // adding nodes and edges to the graph
+                data = {nodes: nodes, edges: edges};
+
+                var options = {"nodes": {"font": {"size": 70, "align": "middle"}, "scaling": {"min": 70, "max": 120}, "borderWidth": 0, "size": 100}, "edges": {"color": {"inherit": true}, "smooth": false}, "physics": {"stabilization": {"enabled": false}, "forceAtlas2Based": {"theta": 0.5, "gravitationalConstant": -1100, "centralGravity": 0.009, "springConstant": 0.08, "springLength": 600, "damping": 0.2, "avoidOverlap": 0}, "solver": "forceAtlas2Based", "minVelocity": 0.75, "timestep": 0.5}};
+
+                
+
+
+                
+            
+                
+                var viewState = {};
+
+                var default_preferences = {
+                    "centralGravity": 8,
+                    "damping": 20,
+                    "edgeLength": 4,
+                    "edgeWidth": 6,
+                    "fontSize": 43,
+                    "gravitationalConstant": 437,
+                    "nodeSize": 11,
+                    "physics": true,
+                    "springConstant": 5,
+                };
+                
+                var preferences = {
+                    "centralGravity": 8,
+                    "damping": 20,
+                    "edgeLength": 4,
+                    "edgeWidth": 6,
+                    "fontSize": 43,
+                    "gravitationalConstant": 437,
+                    "nodeSize": 11,
+                    "physics": true,
+                    "springConstant": 5,
+                };
+
+                storedPreferences = localStorage.getItem('preferences');
+                if (storedPreferences !== null) {
+                    var savedPreferences = JSON.parse(storedPreferences);
+                    preferences = savedPreferences;
+                }
+                
+                const left_panel = document.getElementById('leftPanel');
+                const left_panel_content = left_panel.querySelector('.panel-content');
+                
+                network = new vis.Network(container, data, options);
+                network.on("click", function(params) {
+                    if (params.nodes.length > 0) {
+                        var node = this.body.data.nodes.get(params.nodes[0]);
+                        if (node.url) {
+                            if (params.event.srcEvent.ctrlKey) {
+                                window.open(node.url, '_blank');
+                            }else {
+                                window.location.href = node.url;
+                            }
+                        }
+                    }
+                    toggleSaveNodePositions()
+                });
+                
+                function loadViewState(){
+                    var savedState = JSON.parse(localStorage.getItem('networkViewState'));
+                    if (savedState) {
+                        network.moveTo({
+                            position: savedState.position,
+                            scale: savedState.scale
+                        });
+                    }
+                }
+
+                function saveViewState(){
+                    var viewPosition = network.getViewPosition();
+                    var scale = network.getScale();
+                    var viewState = {
+                        position: viewPosition,
+                        scale: scale
+                    };
+                    localStorage.setItem('networkViewState', JSON.stringify(viewState));
+                }
+
+                function savePreferences(){
+                    localStorage.setItem('preferences', JSON.stringify(preferences));
+                }
+
+                function loadPhysics(){
+                    var btn = document.getElementById('btn_physics');
+                    if (preferences.physics == true) {
+                        network.setOptions( { physics: true } );
+                        btn.innerHTML = 'Physics: ON';
+                    } else {
+                        network.setOptions( { physics: false } );
+                        btn.innerHTML = 'Physics: OFF';
+                    }
+                }
+
+                // Add Button and Slider to Control the Physics 
+                function togglePhysics() {
+                    var btn = document.getElementById('btn_physics');
+                    var physics = !network.physics.options.enabled;
+                    network.physics.enabled = physics;
+                    
+                    if (physics) {
+                        preferences.physics = true;
+                        network.setOptions( { physics: true } );
+                        btn.innerHTML = 'Physics: ON';
+                    } else {
+                        preferences.physics = false;
+                        network.setOptions( { physics: false } );
+                        btn.innerHTML = 'Physics: OFF';
+                    }
+                    savePreferences();
+                }
+                
+                // Physics
+                const btn_physics = document.getElementById('btn_physics');
+                btn_physics.onclick = togglePhysics;
+                
+                // Save as Startup
+                const btn_save_node_positions = document.getElementById('btn_save_node_positions');
+                btn_save_node_positions.onclick = toggleSaveNodePositions;
+
+                function toggleSaveNodePositions() {
+                    node_positions = network.getPositions();
+                    saveNodePositions();
+                    savePreferences();
+                    saveViewState();
+                }
+                
+                // Reset
+                const btn_reset_preferences = document.getElementById('btn_reset_preferences');
+                btn_reset_preferences.onclick = resetPreferences;
+
+                // gravitationalConstant
+                const slider_gravitationalConstant = document.getElementById('slider_gravitationalConstant');
+                slider_gravitationalConstant.value = preferences.gravitationalConstant;
+                slider_gravitationalConstant.oninput = on_slider_gravitationalConstant_input;
+
+                function on_slider_gravitationalConstant_input() {
+                    var gravitationalConstant = document.getElementById('slider_gravitationalConstant').value;
+                    preferences.gravitationalConstant = gravitationalConstant;
+                    value = gravitationalConstant -1100;
+                    network.setOptions( { physics: {"forceAtlas2Based": {gravitationalConstant: value} }} );
+                    savePreferences();
+                }
+                
+                // centralGravity
+                const slider_centralGravity = document.getElementById('slider_centralGravity');
+                slider_centralGravity.value = preferences.centralGravity;
+                slider_centralGravity.oninput = on_slider_centralGravity_input;
+
+                function on_slider_centralGravity_input() {
+                    var centralGravity = document.getElementById('slider_centralGravity').value;
+                    preferences.centralGravity = centralGravity;
+                    value = centralGravity * 0.001;
+                    network.setOptions( { physics: {"forceAtlas2Based": {centralGravity: value} }} );
+                    savePreferences();
+                }
+
+                // sprintConstant
+                const slider_springConstant = document.getElementById('slider_springConstant');
+                slider_springConstant.value = preferences.springConstant;
+                slider_springConstant.oninput = on_slider_springConstant_input;
+
+                function on_slider_springConstant_input() {
+                    var springConstant = document.getElementById('slider_springConstant').value;
+                    preferences.springConstant = springConstant;
+                    value = springConstant * 0.01;
+                    network.setOptions( { physics: {"forceAtlas2Based": {springConstant: value} }} );
+                    savePreferences();
+                }
+
+                // Damping
+                const slider_damping = document.getElementById('slider_damping');
+                slider_damping.value = preferences.damping;
+                slider_damping.oninput = on_slider_damping_input;
+
+                function on_slider_damping_input() {
+                    var damping = document.getElementById('slider_damping').value;
+                    preferences.damping = damping;
+                    value = damping * 0.01;
+                    network.setOptions( { physics: {"forceAtlas2Based": {damping: value} }} );
+                    savePreferences();
+                }
+
+                // fontSize
+                const slider_fontSize = document.getElementById('slider_fontSize');
+                slider_fontSize.value = preferences.fontSize;
+                slider_fontSize.oninput = on_slider_fontSize_input;
+
+                function on_slider_fontSize_input() {
+                    var font_size = document.getElementById('slider_fontSize').value;
+                    preferences.fontSize = font_size;
+                    network.setOptions( { nodes: {"font": {size: parseFloat(font_size)} }} );
+                    savePreferences();
+                }
+
+                // nodeSize
+                const slider_nodeSize = document.getElementById('slider_nodeSize');
+                slider_nodeSize.value = preferences.nodeSize;
+                slider_nodeSize.oninput = on_slider_nodeSize_input;
+
+                var nodes_backup = data.nodes.get();
+
+                function on_slider_nodeSize_input() {
+                    var node_size = document.getElementById('slider_nodeSize').value;
+                    preferences.nodeSize = node_size;
+                    value = node_size * 0.1;
+                    data.nodes.update(nodes_backup);
+                    var nodes = data.nodes.get();
+                    for (var i = 0; i < nodes.length; i++) {
+                        mysize = nodes[i].size * value
+                        nodes[i].size = mysize;
+                    }
+                    data.nodes.update(nodes);
+                    savePreferences();
+                }
+
+                // edgeLength
+                const slider_edgeLength = document.getElementById('slider_edgeLength');
+                slider_edgeLength.value = preferences.edgeLength;
+                slider_edgeLength.oninput = on_slider_edge_input;
+
+                // edgeWidth
+                const slider_edgeWidth = document.getElementById('slider_edgeWidth');
+                slider_edgeWidth.value = preferences.edgeWidth;
+                slider_edgeWidth.oninput = on_slider_edge_input;
+
+                var edges_backup = data.edges.get();
+
+                function on_slider_edge_input() {
+                    var edge_length = document.getElementById('slider_edgeLength').value;
+                    var edge_width = document.getElementById('slider_edgeWidth').value;
+                    preferences.edgeLength = edge_length;
+                    preferences.edgeWidth = edge_width;
+                    data.edges.update(edges_backup);
+                    var edges = data.edges.get();
+                    for (var i = 0; i < edges.length; i++) {
+                        edges[i].length = edges[i].length * edge_length * 0.1;
+                        edges[i].width = edges[i].width * edge_width * 0.1;
+                    }
+                    data.edges.update(edges);
+                    savePreferences();
+                };
+                
+                function loadPreferences(){
+                    on_slider_gravitationalConstant_input();
+                    on_slider_centralGravity_input();
+                    on_slider_springConstant_input();
+                    on_slider_damping_input();
+                    on_slider_fontSize_input();
+                    on_slider_nodeSize_input();
+                    on_slider_edge_input();
+                    loadPhysics();
+                    loadViewState();
+                }
+
+                function resetPreferences(){
+                    document.getElementById('btn_physics').value = default_preferences.physics;
+                    document.getElementById('slider_gravitationalConstant').value = default_preferences.gravitationalConstant;
+                    document.getElementById('slider_centralGravity').value = default_preferences.centralGravity;
+                    document.getElementById('slider_springConstant').value = default_preferences.springConstant;
+                    document.getElementById('slider_damping').value = default_preferences.damping;
+                    document.getElementById('slider_fontSize').value = default_preferences.fontSize;
+                    document.getElementById('slider_nodeSize').value = default_preferences.nodeSize;
+                    document.getElementById('slider_edgeLength').value = default_preferences.edgeLength;
+                    document.getElementById('slider_edgeWidth').value = default_preferences.edgeWidth;
+
+                    allNodes = nodes.get({ returnType: "Object" });
+                    for (nodeId in allNodes) {
+                        nodeColors[nodeId] = allNodes[nodeId].color;
+                    }
+                    data = {nodes: nodes, edges: edges};
+
+                    network = new vis.Network(container, data, options);
+                    network.on("click", function(params) {
+                        if (params.nodes.length > 0) {
+                            var node = this.body.data.nodes.get(params.nodes[0]);
+                            if (node.url) {
+                                if (params.event.srcEvent.ctrlKey) {
+                                    window.open(node.url, '_blank');
+                                }else {
+                                    window.location.href = node.url;
+                                }
+                            }
+                        }
+                        toggleSaveNodePositions()
+                    });
+
+                    viewState = {"position":{"x":122.26498687735877,"y":1344.4657619150016},"scale":0.14563667453404308}
+                    localStorage.setItem('networkViewState', JSON.stringify(viewState));
+                    network.moveTo({
+                        position: viewState.position,
+                        scale: viewState.scale
+                    });
+
+                    // preferences.physics = true;
+
+                    node_positions = {};
+                    saveNodePositions();
+
+                    preferences = {
+                        "centralGravity": 8,
+                        "damping": 20,
+                        "edgeLength": 4,
+                        "edgeWidth": 6,
+                        "fontSize": 43,
+                        "gravitationalConstant": 437,
+                        "nodeSize": 11,
+                        "physics": true,
+                        "springConstant": 5,
+                    };
+                    savePreferences();
+
+                    loadPreferences();
+                }
+                
+                loadPreferences();
+
+                  // seet physic on / off by dragStart dragEnd
+                //   network.on("dragStart", function(params) {
+                //       if (params.nodes.length > 0) {
+                //         network.setOptions( { physics: true } );
+                //       }
+                //     });
+
+                //   network.on("dragEnd", function(params) {
+                //       if (params.nodes.length > 0) {
+
+                //         network.setOptions( { physics: false } );
+                      
+                //       }
+                //     });
+
+                //   setTimeout(function() {
+                //     network.setOptions( { physics: false } );
+                //     }, 12000);
+                    
+
+                
+
+                  
+                
+                  
+
+                  
+
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

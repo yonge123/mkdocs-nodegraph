@@ -1,0 +1,285 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://marketplace.visualstudio.com/items?itemName=pomdtr.excalidraw-editor",
+  "elements": [
+    {
+      "type": "rectangle",
+      "version": 35,
+      "versionNonce": 360644053,
+      "isDeleted": false,
+      "id": "8cRUFoE3BnX6L65t5e2NU",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 480,
+      "y": 582,
+      "strokeColor": "#ffec99",
+      "backgroundColor": "transparent",
+      "width": 240,
+      "height": 205,
+      "seed": 1274057493,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": {
+        "type": 3
+      },
+      "boundElements": [],
+      "updated": 1727570623617,
+      "link": null,
+      "locked": false
+    },
+    {
+      "type": "freedraw",
+      "version": 45,
+      "versionNonce": 1173604731,
+      "isDeleted": false,
+      "id": "9jhWEA126xD4b348fCpIg",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 807,
+      "y": 615,
+      "strokeColor": "#ffec99",
+      "backgroundColor": "transparent",
+      "width": 373,
+      "height": 50,
+      "seed": 1961524021,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": null,
+      "boundElements": [],
+      "updated": 1727570629600,
+      "link": null,
+      "locked": false,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          4,
+          0
+        ],
+        [
+          26,
+          -5
+        ],
+        [
+          48,
+          -9
+        ],
+        [
+          72,
+          -9
+        ],
+        [
+          93,
+          -9
+        ],
+        [
+          102,
+          -9
+        ],
+        [
+          104,
+          -8
+        ],
+        [
+          104,
+          0
+        ],
+        [
+          106,
+          13
+        ],
+        [
+          105,
+          23
+        ],
+        [
+          102,
+          29
+        ],
+        [
+          102,
+          30
+        ],
+        [
+          107,
+          23
+        ],
+        [
+          123,
+          6
+        ],
+        [
+          143,
+          -11
+        ],
+        [
+          160,
+          -18
+        ],
+        [
+          166,
+          -20
+        ],
+        [
+          170,
+          -16
+        ],
+        [
+          174,
+          -3
+        ],
+        [
+          176,
+          7
+        ],
+        [
+          178,
+          13
+        ],
+        [
+          178,
+          14
+        ],
+        [
+          179,
+          15
+        ],
+        [
+          186,
+          14
+        ],
+        [
+          207,
+          8
+        ],
+        [
+          229,
+          4
+        ],
+        [
+          244,
+          4
+        ],
+        [
+          250,
+          4
+        ],
+        [
+          252,
+          5
+        ],
+        [
+          255,
+          9
+        ],
+        [
+          258,
+          13
+        ],
+        [
+          263,
+          18
+        ],
+        [
+          272,
+          21
+        ],
+        [
+          293,
+          23
+        ],
+        [
+          330,
+          23
+        ],
+        [
+          351,
+          18
+        ],
+        [
+          362,
+          16
+        ],
+        [
+          365,
+          16
+        ],
+        [
+          367,
+          14
+        ],
+        [
+          370,
+          13
+        ],
+        [
+          371,
+          13
+        ],
+        [
+          373,
+          12
+        ],
+        [
+          373,
+          12
+        ]
+      ],
+      "lastCommittedPoint": null,
+      "simulatePressure": true,
+      "pressures": []
+    },
+    {
+      "type": "text",
+      "version": 58,
+      "versionNonce": 1581683235,
+      "isDeleted": false,
+      "id": "BEExfYAeeAiHU31SjD-kw",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 832,
+      "y": 710,
+      "strokeColor": "#ffec99",
+      "backgroundColor": "transparent",
+      "width": 248.0127410888672,
+      "height": 55.999999999999986,
+      "seed": 458760469,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": null,
+      "boundElements": [],
+      "updated": 1728344677052,
+      "link": null,
+      "locked": false,
+      "fontSize": 44.79999999999999,
+      "fontFamily": 1,
+      "text": "Hello World!",
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "containerId": null,
+      "originalText": "Hello World!",
+      "lineHeight": 1.25,
+      "baseline": 39
+    }
+  ],
+  "appState": {
+    "gridSize": null,
+    "viewBackgroundColor": "#37615d"
+  },
+  "files": {}
+}
