@@ -1,6 +1,6 @@
 # Home
 
 
-## [CG Software](./CG_Software/__CG_Software.md)
+## [CG Software](./CG_Software/CG_Software.md)
 
-## [OS](./OS/__OS.md)
+## [OS](./OS/OS.md)
