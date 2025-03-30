@@ -1,0 +1,84 @@
+site_name: 'My Documents'
+
+# Material Theme
+theme:
+    # pip install mkdocs-material
+    name: material
+    # name: readthedocs
+    features:
+        # - navigation.tabs
+        - content.code.copy
+    palette:
+      # Palette toggle for dark mode
+      - media: "(prefers-color-scheme: dark)"
+        scheme: slate
+        primary: blue
+        accent: blue
+        toggle:
+          icon: material/brightness-7
+          name: Switch to light mode
+      # Palette toggle for light mode
+      - media: "(prefers-color-scheme: light)"
+        scheme: default
+        primary: blue
+        accent: blue
+        toggle:
+          icon: material/brightness-4
+          name: Switch to dark mode
+
+markdown_extensions:
+
+    - markdown.extensions.admonition
+    - markdown.extensions.attr_list
+    - markdown.extensions.codehilite:
+        guess_lang: false
+    - markdown.extensions.def_list
+    - markdown.extensions.footnotes
+    - markdown.extensions.meta
+    - markdown.extensions.toc:
+        permalink: true
+
+    - pymdownx.arithmatex
+    - pymdownx.betterem:
+        smart_enable: all
+    - pymdownx.caret
+    - pymdownx.critic
+    - pymdownx.details
+    - pymdownx.emoji:
+        emoji_index: !!python/name:material.extensions.emoji.twemoji
+        emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+    - pymdownx.inlinehilite
+    - pymdownx.keys
+    - pymdownx.magiclink:
+        repo_url_shorthand: true
+        user: squidfunk
+        repo: mkdocs-material
+    - pymdownx.mark
+    - pymdownx.smartsymbols
+    - pymdownx.snippets:
+        check_paths: true
+    - pymdownx.superfences
+    - pymdownx.tabbed:
+        alternate_style: true
+    - pymdownx.tasklist:
+        custom_checkbox: true
+    - pymdownx.tilde
+
+
+plugins:
+    - search
+    - offline
+    - glightbox:
+        skip_classes: 
+            - collapse-btn
+    - nodegraph:
+        graphfile: "nodegraph.html"
+
+use_directory_urls: false
+
+# extra_css:
+#   - sources/stylesheets/extra.css
+
+extra_javascript:
+    - 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML'

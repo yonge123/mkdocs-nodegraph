@@ -1,0 +1,1158 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        {% if cdn_resources=="local" %}
+            
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            {% if select_menu or filter_menu %}
+                <link href="lib/tom-select/tom-select.css" rel="stylesheet">
+                <script src="lib/tom-select/tom-select.complete.min.js"></script>
+            {%  endif %}
+        {% elif cdn_resources=="in_line" %}
+            <style>{%  include 'lib/vis-9.1.2/vis-network.css' %}</style>
+            <script>{%  include 'lib/vis-9.1.2/vis-network.min.js' %}</script>
+            {% if select_menu or filter_menu %}
+                <style>{%  include 'lib/tom-select/tom-select.css' %}</style>
+                <script>{%  include 'lib/tom-select/tom-select.complete.min.js' %}</script>
+            {%  endif %}
+        {%  elif cdn_resources=="remote" %}
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            {#            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.0.4/dist/dist/vis-network.min.css" integrity="sha512-+5tJeVsSE2tSnmKB5SWOD0GsYA5dOP0B/FSv7I2GYhdOcyjJq81Q1St3qgJgInwreAdNuw0KGJ0FOaxOJ0E4yw==" crossorigin="anonymous" referrerpolicy="no-referrer" />#}
+            {#            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.0.4/dist/vis-network.js"#}
+            {#                integrity="sha512-CEbUhbSq35hCqBH8ckfAkH1Tcua5NEywtEzwiJ+BUC4EIZkC7vyta3ivZu/WqJhK1qHTurO3hwHsErU3HHjwIA=="#}
+            {#                crossorigin="anonymous"#}
+            {#                referrerpolicy="no-referrer"></script>#}
+            {% if select_menu or filter_menu %}
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tom-select/2.0.0-rc.4/css/tom-select.min.css" integrity="sha512-43fHB3GLgZfz8QXl1RPQ8O66oIgv3po9cJ5erMt1c4QISq9dYb195T3vr5ImnJPXuVroKcGBPXBFKETW8jrPNQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/tom-select/2.0.0-rc.4/js/tom-select.complete.js" integrity="sha512-jeF9CfnvzDiw9G9xiksVjxR2lib44Gnovvkv+3CgCG6NXCD4gqlA5nDAVW5WjpA+i+/zKsUWV5xNEbW1X/HH0Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            {%  endif %}
+
+        {% endif %}
+<center>
+<h1>{{heading}}</h1>
+</center>
+
+
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1>{{heading}}</h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: {{width}};
+                 height: {{height}};
+                 background-color: {{bgcolor}};
+                 position: absolute;
+                 border: 1px solid {{bgcolor}};
+                 float: left;
+                 z-index: 1;
+             }
+
+             {% if nodes|length > 100 and physics_enabled %}
+
+             #bar {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 width:20px;
+                 height:20px;
+                 margin:auto auto auto auto;
+                 border-radius:11px;
+                 border:2px solid rgba(30,30,30,0.05);
+                 background: rgb(0, 173, 246); /* Old browsers */
+                 box-shadow: 2px 0px 4px rgba(0,0,0,0.4);
+             }
+
+             #border {
+                 position:absolute;
+                 top:10px;
+                 left:10px;
+                 width:500px;
+                 height:23px;
+                 margin:auto auto auto auto;
+                 box-shadow: 0px 0px 4px rgba(0,0,0,0.2);
+                 border-radius:10px;
+             }
+
+             #text {
+                 position:absolute;
+                 top:8px;
+                 left:530px;
+                 width:30px;
+                 height:50px;
+                 margin:auto auto auto auto;
+                 font-size:22px;
+                 color: #000000;
+             }
+
+             div.outerBorder {
+                 position:relative;
+                 top:400px;
+                 width:600px;
+                 height:44px;
+                 margin:auto auto auto auto;
+                 border:8px solid rgba(0,0,0,0.1);
+                 background: rgb(252,252,252); /* Old browsers */
+                 background: -moz-linear-gradient(top,  rgba(252,252,252,1) 0%, rgba(237,237,237,1) 100%); /* FF3.6+ */
+                 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(252,252,252,1)), color-stop(100%,rgba(237,237,237,1))); /* Chrome,Safari4+ */
+                 background: -webkit-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Chrome10+,Safari5.1+ */
+                 background: -o-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Opera 11.10+ */
+                 background: -ms-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* IE10+ */
+                 background: linear-gradient(to bottom,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* W3C */
+                 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+                 border-radius:72px;
+                 box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+             }
+             {% endif %}
+
+             {% if conf %}
+             #config {
+                 float: left;
+                 width: 400px;
+                 height: 600px;
+             }
+             {% endif %}
+
+             {% if tooltip_link %}
+             /* position absolute is important and the container has to be relative or absolute as well. */
+          div.popup {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 display:none;
+                 background-color:#f5f4ed;
+                 -moz-border-radius: 3px;
+                 -webkit-border-radius: 3px;
+                 border-radius: 3px;
+                 border: 1px solid #808074;
+                 box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+          }
+
+          /* hide the original tooltip */
+          .vis-tooltip {
+            display:none;
+          }
+             {% endif %}
+
+
+             body {
+                 margin: 0;
+                 padding: 0;
+             }
+
+             .card {
+                display: absolute;
+                min-height: 100vh;
+            }
+            
+            .left-panel {
+                background: #222222a6;
+                width: 210px;
+                position: absolute;
+                z-index: 2;
+                border-radius: 10px;
+              }
+              
+              .left-panel.collapsed {
+                width: 30px;
+                background: #22222200;
+            }
+            .left-panel.collapsed .panel-content {
+                opacity: 0;
+                visibility: hidden;
+            }
+            .collapse-btn {
+                position: absolute;
+                width: 30px;
+                height: 30px;
+                right: 0%;
+                padding: 2px 2px;
+                color: whitesmoke;
+                background: #222222a6;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: 0.3s;
+                user-select: none;
+            }
+
+            .collapse-btn:hover {
+                background: #747988;
+            }
+
+            .panel-content {
+                flex-direction: column;
+                padding: 5px;
+                gap: 10px;
+                margin-bottom: 20px;
+                margin-top: 30px;
+            }
+            
+            .physics-btn {
+              font-size: 13px;
+              position: relative;
+              z-index: 1000;
+              padding: 9px 9px;
+              margin: 3px;
+              background-color: hsl(122, 39%, 49%);
+              color: white;
+              border: none;
+              border-radius: 2px;
+              width: 200px;
+              cursor: pointer;
+            }
+
+            .physics-btn:hover {
+              background-color:hsl(121, 47%, 57%);
+            }
+
+            .save-btn {
+              font-size: 13px;
+              position: relative;
+              z-index: 1000;
+              padding: 9px 9px;
+              margin: 3px;
+              background-color: hsl(194, 42%, 45%);
+              color: white;
+              border: none;
+              border-radius: 2px;
+              width: 200px;
+              cursor: pointer;
+            }
+
+            .save-btn:hover {
+              background-color: hsl(194, 41%, 53%);
+            }
+
+            .reset-btn {
+              font-size: 14px;
+              position: relative;
+              z-index: 1000;
+              padding: 9px 9px;
+              margin: 3px;
+              background-color: hsl(0, 0%, 40%);
+              color: white;
+              border: none;
+              width: 200px;
+              border-radius: 2px;
+              cursor: pointer;
+            }
+
+            .reset-btn:hover {
+              background-color: hsl(0, 0%, 50%);
+            }
+
+            input {
+                accent-color: gray;
+            }
+
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            {% if select_menu %}
+                <div id="select-menu" class="card-header">
+                    <div class="row no-gutters">
+                        <div class="col-10 pb-2">
+                            <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            onchange="selectNode([value]);"
+                            id="select-node"
+                            placeholder="Select node..."
+                            >
+                                <option selected>Select a Node by ID</option>
+                                {% for node in nodes %}
+                                    <option value="{{ node.id }}">{{node.id}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-2 pb-2">
+                            <button type="button" class="btn btn-primary btn-block" onclick="neighbourhoodHighlight({nodes: []});">Reset Selection</button>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            {% if filter_menu %}
+              <div id="filter-menu" class="card-header">
+                <div class="row no-gutters">
+                  <div class="col-3 pb-2">
+                    <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            onchange="updateFilter(value, 'item')"
+                            id="select-item"
+                        >
+                        <option value="">Select a network item</option>
+                        <option value="edge">edge</option>
+                        <option value="node">node</option>
+                    </select>
+                  </div>
+                  <div class="col-3 pb-2">
+                    <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            onchange="updateFilter(value, 'property')"
+                            id="select-property"
+                        >
+                        <option value="">Select a property...</option>
+                    </select>
+                  </div>
+                  <div class="col-3 pb-2">
+                    <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            id="select-value"
+                        >
+                        <option value="">Select value(s)...</option>
+                    </select>
+                  </div>
+                  <div class="col-1 pb-2">
+                    <button type="button" class="btn btn-primary btn-block" onclick="highlightFilter(filter);">Filter</button>
+                  </div>
+                  <div class="col-2 pb-2">
+                    <button type="button" class="btn btn-primary btn-block" onclick="clearFilter(true)">Reset Selection</button>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+
+            <div class="left-panel" id="leftPanel">
+                <button class="collapse-btn" onclick="togglePanel('leftPanel')"> 
+                    <svg width="28px" height="28px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M 11 3.9 V 20.3 M 6 7.4 H 8 M 6 10.9 H 8 M 6 14.5 H 8 M 6.2 20.3 H 17.8 C 18.9 20.3 19.5 20.3 19.9 20.1 C 20.3 19.8 20.6 19.5 20.8 19 C 21 18.6 21 17.9 21 16.6 V 7.7 C 21 6.4 21 5.7 20.8 5.2 C 20.6 4.7 20.3 4.4 19.9 4.1 C 19.5 3.9 18.9 3.9 17.8 3.9 H 6.2 C 5.1 3.9 4.5 3.9 4.1 4.1 C 3.7 4.4 3.4 4.7 3.2 5.2 C 3 5.7 3 6.4 3 7.7 V 16.6 C 3 17.9 3 18.6 3.2 19 C 3.4 19.5 3.7 19.8 4.1 20.1 C 4.5 20.3 5.1 20.3 6.2 20.3 Z" stroke="whitesmoke" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+
+                <div class="panel-content">
+
+                    <button class="physics-btn" id="btn_physics" >Physics: ON</button>
+                    <button class="save-btn" id="btn_save_node_positions" >Save</button>
+                    <button class="reset-btn" id="btn_reset_preferences" >Reset</button>
+
+                    <span id="text_gravitationalConstant" style="
+                        opacity: 0.9;
+                        top: 0px;
+                        left: 0px;
+                        position: relative;
+                        font-size: 16px;
+                        font-weight: bold;
+                        color: #4CAF50;">
+                        Gravitational Constant
+                    </span>
+                    <input id="slider_gravitationalConstant" 
+                        type="range"
+                        min="-5000"
+                        max="1100"
+                        style="
+                        color: gray;
+                        opacity: 0.5;
+                        width: 200px;">
+                    </input>
+
+                    <span id="text_centralGravity" style="
+                        opacity: 0.9;
+                        top: 0px;
+                        left: 0px;
+                        position: relative;
+                        font-size: 16px;
+                        font-weight: bold;
+                        color: #4CAF50;">
+                        CentralGravity
+                    </span>
+                    <input id="slider_centralGravity" 
+                        type="range"
+                        min="0"
+                        max="100"
+                        style="
+                        opacity: 0.5;
+                        width: 200px;">
+                    </input>
+
+                    <span id="text_springConstant" style="
+                        opacity: 0.9;
+                        top: 0px;
+                        left: 0px;
+                        position: relative;
+                        font-size: 16px;
+                        font-weight: bold;
+                        color: #4CAF50;">
+                        Spring Constant
+                    </span>
+                    <input id="slider_springConstant" 
+                        type="range"
+                        min="0"
+                        max="100"
+                        style="
+                        opacity: 0.5;
+                        width: 200px;">
+                    </input>
+                    
+                    <span id="text_damping" style="
+                        opacity: 0.9;
+                        top: 0px;
+                        left: 0px;
+                        position: relative;
+                        font-size: 16px;
+                        font-weight: bold;
+                        color: #4CAF50;">
+                        Damping
+                    </span>
+                    <input id="slider_damping" 
+                        type="range"
+                        min="0"
+                        max="50"
+                        style="
+                        opacity: 0.5;
+                        width: 200px;">
+                    </input>
+                    
+                    <span id="text_fontSize" style="
+                        opacity: 0.9;
+                        top: 0px;
+                        left: 0px;
+                        position: relative;
+                        font-size: 16px;
+                        font-weight: bold;
+                        color: #4CAF50;">
+                        Font Size
+                    </span>
+                    <input id="slider_fontSize" 
+                        type="range"
+                        min="30"
+                        max="200"
+                        style="
+                        opacity: 0.5;
+                        width: 200px;">
+                    </input>
+                    
+                    <span id="text_nodeSize" style="
+                        opacity: 0.9;
+                        top: 0px;
+                        left: 0px;
+                        position: relative;
+                        font-size: 16px;
+                        font-weight: bold;
+                        color: #4CAF50;">
+                        Node Size
+                    </span>
+                    <input id="slider_nodeSize" 
+                        type="range"
+                        min="1"
+                        max="100"
+                        style="
+                        opacity: 0.5;
+                        width: 200px;">
+                    </input>
+
+                    <span id="text_edgeLength" style="
+                        opacity: 0.9;
+                        top: 0px;
+                        left: 0px;
+                        position: relative;
+                        font-size: 16px;
+                        font-weight: bold;
+                        color: #4CAF50;">
+                        Edge Length
+                    </span>
+                    <input id="slider_edgeLength" 
+                        type="range"
+                        min="1"
+                        max="100"
+                        style="
+                        opacity: 0.5;
+                        width: 200px;">
+                    </input>
+
+
+                    <span id="text_edgeWidth" style="
+                        opacity: 0.9;
+                        top: 0px;
+                        left: 0px;
+                        position: relative;
+                        font-size: 16px;
+                        font-weight: bold;
+                        color: #4CAF50;">
+                        Edge Width
+                    </span>
+                    <input id="slider_edgeWidth" 
+                        type="range"
+                        min="1"
+                        max="100"
+                        style="
+                        opacity: 0.5;
+                        width: 200px;">
+                    </input>
+                    
+                </div>
+                </div>
+
+
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+       
+        {% if conf %}
+            <div id="config"></div>
+        {% endif %}
+
+        <script>
+            function togglePanel(panelId) {
+                const panel = document.getElementById(panelId);
+                panel.classList.toggle('collapsed');
+                
+                //// Update button text based on panel state
+                // const button = panel.querySelector('.collapse-btn');
+                // if (panelId === 'leftPanel') {
+                //     button.image = "./_sources/svgs/sidebar.svg";
+                //     // button.textContent = panel.classList.contains('collapsed') ? '' : '';
+                // } else {
+                //     button.image = "./_sources/svgs/sidebar.svg";
+                //     // button.textContent = panel.classList.contains('collapsed') ? '' : '';
+                // }
+            }
+
+            togglePanel('leftPanel');
+        </script>
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              {% if select_menu %}
+                  new TomSelect("#select-node",{
+                      create: false,
+                      sortField: {
+                          field: "text",
+                          direction: "asc"
+                      }
+                  });
+              {%  endif %}
+
+              {% if filter_menu %}
+                  // explicitly using onItemAdd and this function as we need to save multiple values
+                  let updateValueFilter = function() {
+                      return function () {
+                      filter['value'].push(arguments[0])
+                      }
+                  }
+
+                  let valueControl = new TomSelect("#select-value",{
+                      maxItems: null,
+                      valueField: 'id',
+                      labelField: 'title',
+                      searchField: 'title',
+                      create: false,
+                      sortField: {
+                          field: "text",
+                          direction: "asc"
+                      },
+                      onItemAdd: updateValueFilter()
+                  });
+
+                  let addValues = function() {
+                      return function () {
+                          // clear the current value options and add the selected attribute values
+                          // tom-select handles duplicates
+                          let selectedProperty = arguments[0];
+                          valueControl.clear();
+                          valueControl.clearOptions();
+                          filter['value'] = []
+                          if (filter['item'] === 'node') {
+                              for (let each in allNodes) {
+                                  valueControl.addOption({
+                                      id:allNodes[each][selectedProperty],
+                                      title:allNodes[each][selectedProperty]
+                                  })
+                              }
+                          }
+                          else if (filter['item'] === 'edge') {
+                              for (let each in allEdges) {
+                                  valueControl.addOption({
+                                      id:allEdges[each][selectedProperty],
+                                      title:allEdges[each][selectedProperty]
+                                  })
+                              }
+                          }
+                      }
+                  };
+
+                  let propControl = new TomSelect("#select-property",{
+                      valueField: 'id',
+                      labelField: 'title',
+                      searchField: 'title',
+                      create: false,
+                      sortField: {
+                          field: "text",
+                          direction: "asc"
+                      },
+                      onItemAdd: addValues()
+                  });
+
+                  let addProperties = function() {
+                      return function () {
+                          // loops through the selected network item and adds the attributes to dropdown
+                          // tom-select handles duplicates
+                          clearFilter(false)
+                          if (arguments[0] === 'edge') {
+                              for (let each in allEdges) {
+                                  if (allEdges.hasOwnProperty(each)) {
+                                      for (let eachProp in allEdges[each]) {
+                                          if (allEdges[each].hasOwnProperty(eachProp)) {
+                                              propControl.addOption({id: eachProp, title: eachProp})
+                                          }
+                                      }
+                                  }
+                              }
+                          }
+                          else if (arguments[0] === 'node') {
+                              for (let each in allNodes) {
+                                  if (allNodes.hasOwnProperty(each)) {
+                                      for (let eachProp in allNodes[each]) {
+                                          if (allNodes[each].hasOwnProperty(eachProp)
+                                              && (eachProp !== 'hidden' && eachProp !== 'savedLabel'
+                                                  && eachProp !== 'hiddenLabel')) {
+                                              propControl.addOption({id: eachProp, title: eachProp})
+
+                                          }
+                                      }
+                                  }
+                              }
+                          }
+                      }
+                  };
+
+                  let itemControl = new TomSelect("#select-item",{
+                      create: false,
+                      sortField:{
+                          field: "text",
+                          direction: "asc"
+                      },
+                      onItemAdd: addProperties()
+                  });
+
+                  function clearFilter(reset) {
+                      // utility function to clear all the selected filter options
+                      // if reset is set to true, the existing filter will be removed
+                      // else, only the dropdown options are cleared
+                      propControl.clear();
+                      propControl.clearOptions();
+                      valueControl.clear();
+                      valueControl.clearOptions();
+                      filter = {
+                          item : '',
+                          property : '',
+                          value : []
+                      }
+                      if (reset) {
+                          itemControl.clear();
+                          filterHighlight({nodes: []})
+                      }
+                  }
+
+                  function updateFilter(value, key) {
+                      // key could be 'item' or 'property' and value is as selected in dropdown
+                      filter[key] = value
+                  }
+
+              {%  endif %}
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  {% if use_DOT %}
+
+                  var DOTstring = "{{dot_lang|safe}}";
+                  var parsedData = vis.network.convertDot(DOTstring);
+
+                  data = {
+                    nodes: parsedData.nodes,
+                    edges: parsedData.edges
+                  }
+
+                  var options = parsedData.options;
+                  options.nodes = {
+                      shape: "dot"
+                  }
+
+                  {% else %}
+
+                // parsing and collecting nodes and edges from the python
+                nodes = new vis.DataSet({{nodes|tojson}});
+                edges = new vis.DataSet({{edges|tojson}});
+ 
+                nodeColors = {};
+                allNodes = nodes.get({ returnType: "Object" });
+                for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                }
+                
+                // load node positions  
+                var node_positions = {};
+                function saveNodePositions(){
+                    localStorage.setItem('node_positions', JSON.stringify(node_positions));
+                }
+                const savedPositions = localStorage.getItem('node_positions');
+                if (savedPositions) {
+                    const positions = JSON.parse(savedPositions);
+                    // Update each node with its saved po
+                    Object.keys(positions).forEach(nodeId => {
+                        if (nodeId in allNodes){
+                            allNodes[nodeId].x = positions[nodeId].x;
+                            allNodes[nodeId].y = positions[nodeId].y;
+                        }
+                    });
+                }
+
+                allEdges = edges.get({ returnType: "Object" });
+                // adding nodes and edges to the graph
+                data = {nodes: nodes, edges: edges};
+
+                var options = {{options|safe}};
+
+                {% endif %}
+
+
+                {% if conf %}
+                // if this network requires displaying the configure window,
+                // put it in its div
+                options.configure["container"] = document.getElementById("config");
+                {% endif %}
+            
+                
+                var viewState = {};
+
+                var default_preferences = {
+                    "centralGravity": 8,
+                    "damping": 20,
+                    "edgeLength": 4,
+                    "edgeWidth": 6,
+                    "fontSize": 43,
+                    "gravitationalConstant": 437,
+                    "nodeSize": 11,
+                    "physics": true,
+                    "springConstant": 5,
+                };
+                
+                var preferences = {
+                    "centralGravity": 8,
+                    "damping": 20,
+                    "edgeLength": 4,
+                    "edgeWidth": 6,
+                    "fontSize": 43,
+                    "gravitationalConstant": 437,
+                    "nodeSize": 11,
+                    "physics": true,
+                    "springConstant": 5,
+                };
+
+                storedPreferences = localStorage.getItem('preferences');
+                if (storedPreferences !== null) {
+                    var savedPreferences = JSON.parse(storedPreferences);
+                    preferences = savedPreferences;
+                }
+                
+                const left_panel = document.getElementById('leftPanel');
+                const left_panel_content = left_panel.querySelector('.panel-content');
+                
+                network = new vis.Network(container, data, options);
+                network.on("click", function(params) {
+                    if (params.nodes.length > 0) {
+                        var node = this.body.data.nodes.get(params.nodes[0]);
+                        if (node.url) {
+                            if (params.event.srcEvent.ctrlKey) {
+                                window.open(node.url, '_blank');
+                            }else {
+                                window.location.href = node.url;
+                            }
+                        }
+                    }
+                    toggleSaveNodePositions()
+                });
+                
+                function loadViewState(){
+                    var savedState = JSON.parse(localStorage.getItem('networkViewState'));
+                    if (savedState) {
+                        network.moveTo({
+                            position: savedState.position,
+                            scale: savedState.scale
+                        });
+                    }
+                }
+
+                function saveViewState(){
+                    var viewPosition = network.getViewPosition();
+                    var scale = network.getScale();
+                    var viewState = {
+                        position: viewPosition,
+                        scale: scale
+                    };
+                    localStorage.setItem('networkViewState', JSON.stringify(viewState));
+                }
+
+                function savePreferences(){
+                    localStorage.setItem('preferences', JSON.stringify(preferences));
+                }
+
+                function loadPhysics(){
+                    var btn = document.getElementById('btn_physics');
+                    if (preferences.physics == true) {
+                        network.setOptions( { physics: true } );
+                        btn.innerHTML = 'Physics: ON';
+                    } else {
+                        network.setOptions( { physics: false } );
+                        btn.innerHTML = 'Physics: OFF';
+                    }
+                }
+
+                // Add Button and Slider to Control the Physics 
+                function togglePhysics() {
+                    var btn = document.getElementById('btn_physics');
+                    var physics = !network.physics.options.enabled;
+                    network.physics.enabled = physics;
+                    
+                    if (physics) {
+                        preferences.physics = true;
+                        network.setOptions( { physics: true } );
+                        btn.innerHTML = 'Physics: ON';
+                    } else {
+                        preferences.physics = false;
+                        network.setOptions( { physics: false } );
+                        btn.innerHTML = 'Physics: OFF';
+                    }
+                    savePreferences();
+                }
+                
+                // Physics
+                const btn_physics = document.getElementById('btn_physics');
+                btn_physics.onclick = togglePhysics;
+                
+                // Save as Startup
+                const btn_save_node_positions = document.getElementById('btn_save_node_positions');
+                btn_save_node_positions.onclick = toggleSaveNodePositions;
+
+                function toggleSaveNodePositions() {
+                    node_positions = network.getPositions();
+                    saveNodePositions();
+                    savePreferences();
+                    saveViewState();
+                }
+                
+                // Reset
+                const btn_reset_preferences = document.getElementById('btn_reset_preferences');
+                btn_reset_preferences.onclick = resetPreferences;
+
+                // gravitationalConstant
+                const slider_gravitationalConstant = document.getElementById('slider_gravitationalConstant');
+                slider_gravitationalConstant.value = preferences.gravitationalConstant;
+                slider_gravitationalConstant.oninput = on_slider_gravitationalConstant_input;
+
+                function on_slider_gravitationalConstant_input() {
+                    var gravitationalConstant = document.getElementById('slider_gravitationalConstant').value;
+                    preferences.gravitationalConstant = gravitationalConstant;
+                    value = gravitationalConstant -1100;
+                    network.setOptions( { physics: {"forceAtlas2Based": {gravitationalConstant: value} }} );
+                    savePreferences();
+                }
+                
+                // centralGravity
+                const slider_centralGravity = document.getElementById('slider_centralGravity');
+                slider_centralGravity.value = preferences.centralGravity;
+                slider_centralGravity.oninput = on_slider_centralGravity_input;
+
+                function on_slider_centralGravity_input() {
+                    var centralGravity = document.getElementById('slider_centralGravity').value;
+                    preferences.centralGravity = centralGravity;
+                    value = centralGravity * 0.001;
+                    network.setOptions( { physics: {"forceAtlas2Based": {centralGravity: value} }} );
+                    savePreferences();
+                }
+
+                // sprintConstant
+                const slider_springConstant = document.getElementById('slider_springConstant');
+                slider_springConstant.value = preferences.springConstant;
+                slider_springConstant.oninput = on_slider_springConstant_input;
+
+                function on_slider_springConstant_input() {
+                    var springConstant = document.getElementById('slider_springConstant').value;
+                    preferences.springConstant = springConstant;
+                    value = springConstant * 0.01;
+                    network.setOptions( { physics: {"forceAtlas2Based": {springConstant: value} }} );
+                    savePreferences();
+                }
+
+                // Damping
+                const slider_damping = document.getElementById('slider_damping');
+                slider_damping.value = preferences.damping;
+                slider_damping.oninput = on_slider_damping_input;
+
+                function on_slider_damping_input() {
+                    var damping = document.getElementById('slider_damping').value;
+                    preferences.damping = damping;
+                    value = damping * 0.01;
+                    network.setOptions( { physics: {"forceAtlas2Based": {damping: value} }} );
+                    savePreferences();
+                }
+
+                // fontSize
+                const slider_fontSize = document.getElementById('slider_fontSize');
+                slider_fontSize.value = preferences.fontSize;
+                slider_fontSize.oninput = on_slider_fontSize_input;
+
+                function on_slider_fontSize_input() {
+                    var font_size = document.getElementById('slider_fontSize').value;
+                    preferences.fontSize = font_size;
+                    network.setOptions( { nodes: {"font": {size: parseFloat(font_size)} }} );
+                    savePreferences();
+                }
+
+                // nodeSize
+                const slider_nodeSize = document.getElementById('slider_nodeSize');
+                slider_nodeSize.value = preferences.nodeSize;
+                slider_nodeSize.oninput = on_slider_nodeSize_input;
+
+                var nodes_backup = data.nodes.get();
+
+                function on_slider_nodeSize_input() {
+                    var node_size = document.getElementById('slider_nodeSize').value;
+                    preferences.nodeSize = node_size;
+                    value = node_size * 0.1;
+                    data.nodes.update(nodes_backup);
+                    var nodes = data.nodes.get();
+                    for (var i = 0; i < nodes.length; i++) {
+                        mysize = nodes[i].size * value
+                        nodes[i].size = mysize;
+                    }
+                    data.nodes.update(nodes);
+                    savePreferences();
+                }
+
+                // edgeLength
+                const slider_edgeLength = document.getElementById('slider_edgeLength');
+                slider_edgeLength.value = preferences.edgeLength;
+                slider_edgeLength.oninput = on_slider_edge_input;
+
+                // edgeWidth
+                const slider_edgeWidth = document.getElementById('slider_edgeWidth');
+                slider_edgeWidth.value = preferences.edgeWidth;
+                slider_edgeWidth.oninput = on_slider_edge_input;
+
+                var edges_backup = data.edges.get();
+
+                function on_slider_edge_input() {
+                    var edge_length = document.getElementById('slider_edgeLength').value;
+                    var edge_width = document.getElementById('slider_edgeWidth').value;
+                    preferences.edgeLength = edge_length;
+                    preferences.edgeWidth = edge_width;
+                    data.edges.update(edges_backup);
+                    var edges = data.edges.get();
+                    for (var i = 0; i < edges.length; i++) {
+                        edges[i].length = edges[i].length * edge_length * 0.1;
+                        edges[i].width = edges[i].width * edge_width * 0.1;
+                    }
+                    data.edges.update(edges);
+                    savePreferences();
+                };
+                
+                function loadPreferences(){
+                    on_slider_gravitationalConstant_input();
+                    on_slider_centralGravity_input();
+                    on_slider_springConstant_input();
+                    on_slider_damping_input();
+                    on_slider_fontSize_input();
+                    on_slider_nodeSize_input();
+                    on_slider_edge_input();
+                    loadPhysics();
+                    loadViewState();
+                }
+
+                function resetPreferences(){
+                    document.getElementById('btn_physics').value = default_preferences.physics;
+                    document.getElementById('slider_gravitationalConstant').value = default_preferences.gravitationalConstant;
+                    document.getElementById('slider_centralGravity').value = default_preferences.centralGravity;
+                    document.getElementById('slider_springConstant').value = default_preferences.springConstant;
+                    document.getElementById('slider_damping').value = default_preferences.damping;
+                    document.getElementById('slider_fontSize').value = default_preferences.fontSize;
+                    document.getElementById('slider_nodeSize').value = default_preferences.nodeSize;
+                    document.getElementById('slider_edgeLength').value = default_preferences.edgeLength;
+                    document.getElementById('slider_edgeWidth').value = default_preferences.edgeWidth;
+
+                    allNodes = nodes.get({ returnType: "Object" });
+                    for (nodeId in allNodes) {
+                        nodeColors[nodeId] = allNodes[nodeId].color;
+                    }
+                    data = {nodes: nodes, edges: edges};
+
+                    network = new vis.Network(container, data, options);
+                    network.on("click", function(params) {
+                        if (params.nodes.length > 0) {
+                            var node = this.body.data.nodes.get(params.nodes[0]);
+                            if (node.url) {
+                                if (params.event.srcEvent.ctrlKey) {
+                                    window.open(node.url, '_blank');
+                                }else {
+                                    window.location.href = node.url;
+                                }
+                            }
+                        }
+                        toggleSaveNodePositions()
+                    });
+
+                    viewState = {"position":{"x":122.26498687735877,"y":1344.4657619150016},"scale":0.14563667453404308}
+                    localStorage.setItem('networkViewState', JSON.stringify(viewState));
+                    network.moveTo({
+                        position: viewState.position,
+                        scale: viewState.scale
+                    });
+
+                    // preferences.physics = true;
+
+                    node_positions = {};
+                    saveNodePositions();
+
+                    preferences = {
+                        "centralGravity": 8,
+                        "damping": 20,
+                        "edgeLength": 4,
+                        "edgeWidth": 6,
+                        "fontSize": 43,
+                        "gravitationalConstant": 437,
+                        "nodeSize": 11,
+                        "physics": true,
+                        "springConstant": 5,
+                    };
+                    savePreferences();
+
+                    loadPreferences();
+                }
+                
+                loadPreferences();
+
+                  // seet physic on / off by dragStart dragEnd
+                //   network.on("dragStart", function(params) {
+                //       if (params.nodes.length > 0) {
+                //         network.setOptions( { physics: true } );
+                //       }
+                //     });
+
+                //   network.on("dragEnd", function(params) {
+                //       if (params.nodes.length > 0) {
+
+                //         network.setOptions( { physics: false } );
+                      
+                //       }
+                //     });
+
+                //   setTimeout(function() {
+                //     network.setOptions( { physics: false } );
+                //     }, 12000);
+                    
+
+                
+
+                  {% if neighborhood_highlight %}
+                    network.on("click", neighbourhoodHighlight);
+                  {% endif %}
+                
+                  {% if select_menu %}
+                    network.on("selectNode", neighbourhoodHighlight);
+                  {% endif %}
+
+                  {% if tooltip_link %}
+                  // make a custom popup
+                      var popup = document.createElement("div");
+                      popup.className = 'popup';
+                      popupTimeout = null;
+                      popup.addEventListener('mouseover', function () {
+                          console.log(popup)
+                          if (popupTimeout !== null) {
+                              clearTimeout(popupTimeout);
+                              popupTimeout = null;
+                          }
+                      });
+                      popup.addEventListener('mouseout', function () {
+                          if (popupTimeout === null) {
+                              hidePopup();
+                          }
+                      });
+                      container.appendChild(popup);
+
+
+                      // use the popup event to show
+                      network.on("showPopup", function (params) {
+                          showPopup(params);
+                      });
+
+                      // use the hide event to hide it
+                      network.on("hidePopup", function (params) {
+                          hidePopup();
+                      });
+
+                      // hiding the popup through css
+                      function hidePopup() {
+                          popupTimeout = setTimeout(function () { popup.style.display = 'none'; }, 500);
+                      }
+
+                      // showing the popup
+                      function showPopup(nodeId) {
+                          // get the data from the vis.DataSet
+                          var nodeData = nodes.get([nodeId]);
+                          popup.innerHTML = nodeData[0].title;
+
+                          // get the position of the node
+                          var posCanvas = network.getPositions([nodeId])[nodeId];
+
+                          // get the bounding box of the node
+                          var boundingBox = network.getBoundingBox(nodeId);
+
+                          //position tooltip:
+                          posCanvas.x = posCanvas.x + 0.5 * (boundingBox.right - boundingBox.left);
+
+                          // convert coordinates to the DOM space
+                          var posDOM = network.canvasToDOM(posCanvas);
+
+                          // Give it an offset
+                          posDOM.x += 10;
+                          posDOM.y -= 20;
+
+                          // show and place the tooltip.
+                          popup.style.display = 'block';
+                          popup.style.top = posDOM.y + 'px';
+                          popup.style.left = posDOM.x + 'px';
+                      }
+                  {% endif %}
+
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
