@@ -25,10 +25,10 @@ jobs:
           if [ -f requirements_doc.txt ]; then pip install -r requirements_doc.txt; fi
           
       - name: Build documentation
-        run: mkdocs build
+        run: cd examples && mkdocs build
         
       - name: Upload documentation
         uses: actions/upload-artifact@v3
         with:
-          name: documentation
-          path: site/
+          name: Docs
+          path: examples/site/
