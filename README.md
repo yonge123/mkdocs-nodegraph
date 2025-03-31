@@ -30,8 +30,9 @@ YouTube Link
 
 <br>
 
-## Install
+## Install 
 
+Install with setup.py
 
 ```shell
 
@@ -42,7 +43,25 @@ python.exe setup.py install
 <br>
 
 
-## Setup Tags, Node Icon and Color on Markdown Files
+Install with pip
+
+```sh
+pip install mkdocs-nodegraph
+```
+
+<br>
+
+Uninstall with pip
+
+```
+pip uninstall mkdocs-nodegraph
+
+```
+
+
+<br>
+
+## Setup Tags, Node Icon and Color on Markdown File
 
 ```md
 
