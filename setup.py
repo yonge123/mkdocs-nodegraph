@@ -1,15 +1,18 @@
 from setuptools import setup, find_packages
 
+with open('README.md', 'r') as fin:
+    long_description = fin.read()
+
 setup(
     name="mkdocs-nodegraph",
-    version="0.1.0",
+    version="0.1.2",
     author="JeongYong Hwang",
     author_email="yonge123@gmail.com",
     keywords=["mkdocs", "plugin", "nodegraph"],
     url="",
     packages=find_packages(),
     license="MIT",
-    description="MkDocs plugin supports nodegraph",
+    license_files=["LICENSE"],
     install_requires=[
         "mkdocs>=1.4.0",
         "mkdocs-material>=9.5.31",
@@ -31,4 +34,7 @@ setup(
             "nodegraph/templates/template.html",
         ],
     },
-)
+    description="Node Graph plugin for Mkdocs Material",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+)   
