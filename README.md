@@ -12,16 +12,20 @@ It allows you to create interactive visualizations of your documentation structu
 ## Example
 
 
-![Example Network Graph Visualization](./sources/example_image_001.png)
+<p align="center">
+<a>
+<img alt="example_image_001.png" src="https://github.com/yonge123/mkdocs-nodegraph/blob/master/sources/example_image_001.png?raw=true" data-hpc="true" class="Box-sc-g0xbh4-0 fzFXnm">
+</a>
+
+
+<!-- ![Example Network Graph Visualization](./sources/example_image_001.png) -->
+
 
 <br>
 
 YouTube Link
 
 - https://www.youtube.com/watch?v=KD1AsW304kc
-
-
-<iframe width="800" height="550" src="https://www.youtube.com/embed/KD1AsW304kc" title="mkdocs nodegraph 002" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 
 <br>

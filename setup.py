@@ -5,14 +5,22 @@ with open('README.md', 'r') as fin:
 
 setup(
     name="mkdocs-nodegraph",
-    version="0.1.2",
+    version="0.1.6",
+    description="Node Graph plugin for Mkdocs Material",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
     author="JeongYong Hwang",
     author_email="yonge123@gmail.com",
     keywords=["mkdocs", "plugin", "nodegraph"],
-    url="",
-    packages=find_packages(),
+    url="https://yonge123.github.io/mkdocs-nodegraph/nodegraph.html",
+    project_urls={
+        "Source": "https://github.com/yonge123/mkdocs-nodegraph/tree/master",
+        "Bug Tracker": "https://github.com/yonge123/mkdocs-nodegraph/issues",
+        "Documentation": "https://github.com/yonge123/mkdocs-nodegraph/tree/master",
+    },
     license="MIT",
     license_files=["LICENSE"],
+    packages=find_packages(),
     install_requires=[
         "mkdocs>=1.4.0",
         "mkdocs-material>=9.5.31",
@@ -21,6 +29,7 @@ setup(
         "pyvis>=0.3.0",
         "PyYAML>=6.0.2",
     ],
+    python_requires='>=3.9',
     entry_points={
         'mkdocs.plugins': [
             'nodegraph = mkdocs_nodegraph.plugin:GraphViewPlugin',
@@ -34,7 +43,4 @@ setup(
             "nodegraph/templates/template.html",
         ],
     },
-    description="Node Graph plugin for Mkdocs Material",
-    long_description=long_description,
-    long_description_content_type="text/markdown",
 )   

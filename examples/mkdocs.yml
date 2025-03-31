@@ -1,4 +1,13 @@
-site_name: 'My Documents'
+site_name: 'Mkdocs Node Graph'
+site_author: JeongYong Hwang
+
+# Repository
+repo_name: mkdocs-nodegraph
+repo_url: https://github.com/yonge123/mkdocs-nodegraph
+
+# Copyright
+copyright: Copyright &copy; 2024 - 2025 JeongYong Hwang
+
 
 # Material Theme
 theme:
