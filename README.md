@@ -129,7 +129,10 @@ mkdocs build
 
 <br>
 
-After building the site, you can click the button ![](./sources/graph_icon.svg) to open the graph file.
+<!-- After building the site, you can click the button ![](./sources/graph_icon.svg) to open the graph file. -->
+
+After building the site, you can click the button <img src="https://github.com/yonge123/mkdocs-nodegraph/raw/master/sources/graph_icon.svg" alt="" style="max-width: 100%;"> to open the graph file.
+
 
 <br>
 
