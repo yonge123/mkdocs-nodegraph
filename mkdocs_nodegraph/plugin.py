@@ -18,7 +18,7 @@ class GraphViewPlugin(mkdocs.plugins.BasePlugin):
     def get_config_graphfile(self):
         graphfile = self.config['graphfile']
         graphfile = graphfile.replace('\\', '/')
-        rgx = re.search('\w.+', graphfile)
+        rgx = re.search(r'\w.+', graphfile)
         if rgx:
             return rgx.group()
         else:
@@ -77,8 +77,8 @@ class GraphViewPlugin(mkdocs.plugins.BasePlugin):
             config_graphfile = config_graphfile + ".html"
         graph_html = os.path.join(site_dir, config_graphfile)
         graph_max_html = os.path.join(site_dir, config_graphfile.replace(".html", "_max.html"))
-        graph_opts_file = os.path.join(os.path.dirname(__file__), "nodegraph\\graph_opts.json")
-        pyvis_opts_file = os.path.join(os.path.dirname(__file__), "nodegraph\\pyvis_opts.js")
+        graph_opts_file = os.path.join(os.path.dirname(__file__), "nodegraph/graph_opts.json")
+        pyvis_opts_file = os.path.join(os.path.dirname(__file__), "nodegraph/pyvis_opts.js")
 
         if os.path.isfile(graph_max_html):
             os.remove(graph_max_html)
