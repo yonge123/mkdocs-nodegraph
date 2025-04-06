@@ -3,6 +3,7 @@ tags:
   - diagram
 mdfile_icon: "sources/svgs/excalidraw.svg"
 mdfile_color: "#6965DB"
+mdfile_site: "https://excalidraw.com/"
 ---
 
 # Excalidraw ![](../sources/svgs/excalidraw.svg){: style="width:40px"}

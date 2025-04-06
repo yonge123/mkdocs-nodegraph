@@ -1,6 +1,7 @@
 ---
 mdfile_icon: "sources/icons/HandBrake_Icon.png"
 mdfile_color: "#bababa"
+mdfile_site: "https://handbrake.fr/"
 ---
 
 # HandBrake ![](../sources/icons/HandBrake_Icon.png){: style="width:40px"}

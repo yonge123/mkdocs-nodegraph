@@ -168,7 +168,7 @@ class GraphBuilder():
             icon = ""
             color = ""
             shape="dot"
-
+            alt_click_url = ""
             metadata = mdfile.metadata
             if metadata:
                 if "mdfile_icon" in metadata:
@@ -176,6 +176,8 @@ class GraphBuilder():
                     icon = icon_prefix + metadata["mdfile_icon"]
                 if "mdfile_color" in metadata:
                     color = metadata["mdfile_color"]
+                if "mdfile_site" in metadata:
+                    alt_click_url = metadata["mdfile_site"]
                     
             if icon:
                 shape="image"
@@ -192,6 +194,7 @@ class GraphBuilder():
             nx_graph.add_node(mdfile.uid, 
                             label=mdfile.title, 
                             url=html, 
+                            url2=alt_click_url,
                             size=size, 
                             shape=shape, 
                             image=icon, 

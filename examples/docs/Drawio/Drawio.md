@@ -1,6 +1,7 @@
 ---
 mdfile_icon: "sources/svgs/drawio.svg"
 mdfile_color: "#f08705"
+mdfile_site: "https://about.draw.io/"
 ---
 
 

@@ -4,6 +4,7 @@ tags:
   - 3D software
 mdfile_icon: "sources/svgs/blender.svg"
 mdfile_color: "#ea7600"
+mdfile_site: "https://www.blender.org/"
 ---
 
 #  Blender ![](../sources/svgs/blender.svg){: style="width:40px"}

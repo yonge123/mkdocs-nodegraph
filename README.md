@@ -71,9 +71,16 @@ tags:
   - 3D software
 mdfile_icon: "_sources/svgs/blender.svg"
 mdfile_color: "#ea7600"
+mdfile_site: "https://www.blender.org/"
 ---
 
 ```
+
+mdfile_icon -> Node Icon
+
+mdfile_color -> Node Color
+
+mdfile_site -> A website URL that opens on click while holding the Alt key
 
 
 <br>
