@@ -251,6 +251,24 @@
               background-color: hsl(0, 0%, 50%);
             }
 
+            .home-btn {
+                font-size: 13px;
+                position: relative;
+                z-index: 1000;
+                padding: 9px 9px;
+                margin: 3px;
+                background-color: hsl(0, 0%, 65%);
+                color: white;
+                border: none;
+                border-radius: 2px;
+                width: 200px;
+                cursor: pointer;
+              }
+  
+              .home-btn:hover {
+                background-color: hsl(0, 0%, 71%);
+              }
+
             input {
                 accent-color: gray;
             }
@@ -339,6 +357,7 @@
 
                     <button class="physics-btn" id="btn_physics" >Physics: ON</button>
                     <button class="save-btn" id="btn_save_node_positions" >Save</button>
+                    <button class="home-btn" id="btn_home_location" >Home</button>
                     <button class="reset-btn" id="btn_reset_preferences" >Reset</button>
 
                     <span id="text_gravitationalConstant" style="
@@ -866,6 +885,10 @@
                     saveViewState();
                 }
                 
+                // Home Location
+                const btn_home_location = document.getElementById('btn_home_location');
+                btn_home_location.onclick = homeLocation;
+
                 // Reset
                 const btn_reset_preferences = document.getElementById('btn_reset_preferences');
                 btn_reset_preferences.onclick = resetPreferences;
@@ -992,6 +1015,15 @@
                     on_slider_edge_input();
                     loadPhysics();
                     loadViewState();
+                }
+                
+                function homeLocation(){
+                    viewState = {"position":{"x":122.26498687735877,"y":1344.4657619150016},"scale":0.14563667453404308}
+                    localStorage.setItem('networkViewState', JSON.stringify(viewState));
+                    network.moveTo({
+                        position: viewState.position,
+                        scale: viewState.scale
+                    });
                 }
 
                 function resetPreferences(){
