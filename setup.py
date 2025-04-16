@@ -5,13 +5,13 @@ with open('README.md', 'r') as fin:
 
 setup(
     name="mkdocs-nodegraph",
-    version="0.3.0",
+    version="0.4.0",
     description="Node Graph plugin for Mkdocs Material",
     long_description=long_description,
     long_description_content_type="text/markdown",
     author="JeongYong Hwang",
     author_email="yonge123@gmail.com",
-    keywords=["mkdocs", "plugin", "nodegraph"],
+    keywords=["mkdocs-nodegraph", "mkdocs", "mkdocs-material", "markdown node", "graph", "nodenetwork", "nodeview", "graphview", "networkgraph", "plugin", "nodegraph", "markdown"],
     url="https://yonge123.github.io/mkdocs-nodegraph/nodegraph.html",
     project_urls={
         "Source": "https://github.com/yonge123/mkdocs-nodegraph/tree/master",

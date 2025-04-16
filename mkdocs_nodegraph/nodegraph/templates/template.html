@@ -154,9 +154,10 @@
                 min-height: 100vh;
             }
             
+                        
             .left-panel {
                 background: #222222a6;
-                width: 210px;
+                width: 270px;
                 position: absolute;
                 z-index: 2;
                 border-radius: 10px;
@@ -197,17 +198,41 @@
                 margin-top: 30px;
             }
             
+            .search-input {
+                position: relative;
+                width: 100%;
+                margin: 3px;
+                padding: 5px 5px 5px 5px;
+                background-color: white;
+                color: rgb(27, 27, 27);
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                font-size: 16px;
+                box-sizing: border-box;
+            }
+            .search-button {
+                position: absolute;
+                right: 0px;
+                top: 37px;
+                background: none;
+                border: none;
+                cursor: pointer;
+            }
+            .search-icon {
+                width: 30px;
+                height: 30px;
+            }
+
             .physics-btn {
               font-size: 13px;
               position: relative;
-              z-index: 1000;
               padding: 9px 9px;
               margin: 3px;
               background-color: hsl(122, 39%, 49%);
               color: white;
               border: none;
-              border-radius: 2px;
-              width: 200px;
+              border-radius: 4px;
+              width: 100%;
               cursor: pointer;
             }
 
@@ -218,14 +243,13 @@
             .save-btn {
               font-size: 13px;
               position: relative;
-              z-index: 1000;
               padding: 9px 9px;
               margin: 3px;
               background-color: hsl(194, 42%, 45%);
               color: white;
               border: none;
-              border-radius: 2px;
-              width: 200px;
+              border-radius: 4px;
+              width: 100%;
               cursor: pointer;
             }
 
@@ -236,23 +260,62 @@
             .reset-btn {
               font-size: 14px;
               position: relative;
-              z-index: 1000;
               padding: 9px 9px;
               margin: 3px;
               background-color: hsl(0, 0%, 40%);
               color: white;
               border: none;
-              width: 200px;
-              border-radius: 2px;
+              width: 100%;
+              border-radius: 4px;
               cursor: pointer;
             }
 
             .reset-btn:hover {
               background-color: hsl(0, 0%, 50%);
             }
+            .home-btn {
+                font-size: 13px;
+                position: relative;
+                padding: 9px 9px;
+                margin: 3px;
+                background-color: hsl(0, 0%, 65%);
+                color: white;
+                border: none;
+                border-radius: 4px;
+                width: 100%;
+                cursor: pointer;
+              }
+  
+            .home-btn:hover {
+                background-color: hsl(0, 0%, 71%);
+            }
 
             input {
                 accent-color: gray;
+            }
+
+            .control-label {
+                opacity: 0.9;
+                top: 0px;
+                left: 0px;
+                position: relative;
+                font-size: 16px;
+                font-weight: bold;
+                color: #4CAF50;
+                display: block;
+                margin-bottom: 5px;
+                width: 100%;
+            }
+
+            input[type="range"] {
+                color: gray;
+                opacity: 0.5;
+                width: 100%;
+                height: 10px;
+                background: #d3d3d3;
+                outline: none;
+                border-radius: 8px;
+                margin-bottom: 6px;
             }
 
         </style>
@@ -337,162 +400,88 @@
 
                 <div class="panel-content">
 
+                    <input type="text" id="searchInput" class="search-input" placeholder="Search...">
+                    <button id="searchButton" class="search-button">
+                        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </button>
                     <button class="physics-btn" id="btn_physics" >Physics: ON</button>
                     <button class="save-btn" id="btn_save_node_positions" >Save</button>
+                    <button class="home-btn" id="btn_home_location" >Home</button>
                     <button class="reset-btn" id="btn_reset_preferences" >Reset</button>
 
-                    <span id="text_gravitationalConstant" style="
-                        opacity: 0.9;
-                        top: 0px;
-                        left: 0px;
-                        position: relative;
-                        font-size: 16px;
-                        font-weight: bold;
-                        color: #4CAF50;">
+                    <span id="text_gravitationalConstant" class="control-label">
                         Gravitational Constant
                     </span>
                     <input id="slider_gravitationalConstant" 
                         type="range"
                         min="-5000"
-                        max="1100"
-                        style="
-                        color: gray;
-                        opacity: 0.5;
-                        width: 200px;">
+                        max="1100">
                     </input>
 
-                    <span id="text_centralGravity" style="
-                        opacity: 0.9;
-                        top: 0px;
-                        left: 0px;
-                        position: relative;
-                        font-size: 16px;
-                        font-weight: bold;
-                        color: #4CAF50;">
+                    <span id="text_centralGravity" class="control-label">
                         CentralGravity
                     </span>
                     <input id="slider_centralGravity" 
                         type="range"
                         min="0"
-                        max="100"
-                        style="
-                        opacity: 0.5;
-                        width: 200px;">
+                        max="100">
                     </input>
 
-                    <span id="text_springConstant" style="
-                        opacity: 0.9;
-                        top: 0px;
-                        left: 0px;
-                        position: relative;
-                        font-size: 16px;
-                        font-weight: bold;
-                        color: #4CAF50;">
+                    <span id="text_springConstant" class="control-label">
                         Spring Constant
                     </span>
                     <input id="slider_springConstant" 
                         type="range"
                         min="0"
-                        max="100"
-                        style="
-                        opacity: 0.5;
-                        width: 200px;">
+                        max="100">
                     </input>
                     
-                    <span id="text_damping" style="
-                        opacity: 0.9;
-                        top: 0px;
-                        left: 0px;
-                        position: relative;
-                        font-size: 16px;
-                        font-weight: bold;
-                        color: #4CAF50;">
+                    <span id="text_damping" class="control-label">
                         Damping
                     </span>
                     <input id="slider_damping" 
                         type="range"
                         min="0"
-                        max="50"
-                        style="
-                        opacity: 0.5;
-                        width: 200px;">
+                        max="50">
                     </input>
                     
-                    <span id="text_fontSize" style="
-                        opacity: 0.9;
-                        top: 0px;
-                        left: 0px;
-                        position: relative;
-                        font-size: 16px;
-                        font-weight: bold;
-                        color: #4CAF50;">
+                    <span id="text_fontSize" class="control-label">
                         Font Size
                     </span>
                     <input id="slider_fontSize" 
                         type="range"
                         min="30"
-                        max="200"
-                        style="
-                        opacity: 0.5;
-                        width: 200px;">
+                        max="200">
                     </input>
                     
-                    <span id="text_nodeSize" style="
-                        opacity: 0.9;
-                        top: 0px;
-                        left: 0px;
-                        position: relative;
-                        font-size: 16px;
-                        font-weight: bold;
-                        color: #4CAF50;">
+                    <span id="text_nodeSize" class="control-label">
                         Node Size
                     </span>
                     <input id="slider_nodeSize" 
                         type="range"
                         min="1"
-                        max="100"
-                        style="
-                        opacity: 0.5;
-                        width: 200px;">
+                        max="100">
                     </input>
 
-                    <span id="text_edgeLength" style="
-                        opacity: 0.9;
-                        top: 0px;
-                        left: 0px;
-                        position: relative;
-                        font-size: 16px;
-                        font-weight: bold;
-                        color: #4CAF50;">
+                    <span id="text_edgeLength" class="control-label">
                         Edge Length
                     </span>
                     <input id="slider_edgeLength" 
                         type="range"
                         min="1"
-                        max="100"
-                        style="
-                        opacity: 0.5;
-                        width: 200px;">
+                        max="100">
                     </input>
 
-
-                    <span id="text_edgeWidth" style="
-                        opacity: 0.9;
-                        top: 0px;
-                        left: 0px;
-                        position: relative;
-                        font-size: 16px;
-                        font-weight: bold;
-                        color: #4CAF50;">
+                    <span id="text_edgeWidth" class="control-label">
                         Edge Width
                     </span>
                     <input id="slider_edgeWidth" 
                         type="range"
                         min="1"
-                        max="100"
-                        style="
-                        opacity: 0.5;
-                        width: 200px;">
+                        max="100">
                     </input>
                     
                 </div>
@@ -850,7 +839,67 @@
                     }
                     savePreferences();
                 }
+
+                // Reset all node highlights
+                function resetHighlight() {
+                    nodes.forEach(node => {
+                        nodes.update({
+                        id: node.id,
+                        font: {
+                            color: node.color,
+                            bold: false,
+                            size: preferences.fontSize
+                        }
+                        });
+                    });
+                }
+
+                function searchNode() {
+                    resetHighlight(); // Reset any previous highlights
+                    
+                    const searchTerm = document.getElementById("searchInput").value.toLowerCase();
+                    if (!searchTerm) return;
+                    
+                    const matchingNodes = [];
+                    
+                    // Find nodes containing the search term
+                    nodes.forEach(node => {
+                      if (node.label.toLowerCase().includes(searchTerm)) {
+                        matchingNodes.push(node.id);
+                        
+                        // Highlight the matching node by changing font color and making it bold
+                        nodes.update({
+                          id: node.id,
+                          font: {
+                            color: "yellow",
+                            bold: true,
+                            size: (preferences.fontSize * 2),
+                          }
+                        });
+                      }
+                    });
+                    
+                    // Focus the network on matched nodes if any found
+                    if (matchingNodes.length > 0) {
+                      network.focus(matchingNodes[0], {
+                        scale: 1.2,
+                        animation: true
+                      });
+                    }
+                }
+
+                // Get DOM elements
+                const searchInput = document.getElementById('searchInput');
+                const searchButton = document.getElementById('searchButton');
                 
+                // Add event listeners
+                searchButton.addEventListener('click', searchNode);
+                searchInput.addEventListener('keyup', function(event) {
+                    if (event.key === 'Enter') {
+                        searchNode();
+                    }
+                });
+
                 // Physics
                 const btn_physics = document.getElementById('btn_physics');
                 btn_physics.onclick = togglePhysics;
@@ -866,6 +915,10 @@
                     saveViewState();
                 }
                 
+                // Home Location
+                const btn_home_location = document.getElementById('btn_home_location');
+                btn_home_location.onclick = homeLocation;
+
                 // Reset
                 const btn_reset_preferences = document.getElementById('btn_reset_preferences');
                 btn_reset_preferences.onclick = resetPreferences;
@@ -992,6 +1045,15 @@
                     on_slider_edge_input();
                     loadPhysics();
                     loadViewState();
+                }
+                
+                function homeLocation(){
+                    viewState = {"position":{"x":122.26498687735877,"y":1344.4657619150016},"scale":0.14563667453404308}
+                    localStorage.setItem('networkViewState', JSON.stringify(viewState));
+                    network.moveTo({
+                        position: viewState.position,
+                        scale: viewState.scale
+                    });
                 }
 
                 function resetPreferences(){
