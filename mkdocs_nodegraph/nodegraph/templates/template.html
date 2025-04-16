@@ -197,6 +197,28 @@
                 margin-top: 30px;
             }
             
+            .search-input {
+                position: relative;
+                width: 200px;
+                padding: 5px 5px 5px 5px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                font-size: 16px;
+                box-sizing: border-box;
+            }
+            .search-button {
+                position: absolute;
+                right: 3px;
+                top: 34px;
+                background: none;
+                border: none;
+                cursor: pointer;
+            }
+            .search-icon {
+                width: 30px;
+                height: 30px;
+            }
+
             .physics-btn {
               font-size: 13px;
               position: relative;
@@ -355,6 +377,13 @@
 
                 <div class="panel-content">
 
+                    <input type="text" id="searchInput" class="search-input" placeholder="Search...">
+                    <button id="searchButton" class="search-button">
+                        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </button>
                     <button class="physics-btn" id="btn_physics" >Physics: ON</button>
                     <button class="save-btn" id="btn_save_node_positions" >Save</button>
                     <button class="home-btn" id="btn_home_location" >Home</button>
@@ -869,7 +898,67 @@
                     }
                     savePreferences();
                 }
+
+                // Reset all node highlights
+                function resetHighlight() {
+                    nodes.forEach(node => {
+                        nodes.update({
+                        id: node.id,
+                        font: {
+                            color: node.color,
+                            bold: false,
+                            size: preferences.fontSize
+                        }
+                        });
+                    });
+                }
+
+                function searchNode() {
+                    resetHighlight(); // Reset any previous highlights
+                    
+                    const searchTerm = document.getElementById("searchInput").value.toLowerCase();
+                    if (!searchTerm) return;
+                    
+                    const matchingNodes = [];
+                    
+                    // Find nodes containing the search term
+                    nodes.forEach(node => {
+                      if (node.label.toLowerCase().includes(searchTerm)) {
+                        matchingNodes.push(node.id);
+                        
+                        // Highlight the matching node by changing font color and making it bold
+                        nodes.update({
+                          id: node.id,
+                          font: {
+                            color: "yellow",
+                            bold: true,
+                            size: (preferences.fontSize * 2),
+                          }
+                        });
+                      }
+                    });
+                    
+                    // Focus the network on matched nodes if any found
+                    if (matchingNodes.length > 0) {
+                      network.focus(matchingNodes[0], {
+                        scale: 1.2,
+                        animation: true
+                      });
+                    }
+                }
+
+                // Get DOM elements
+                const searchInput = document.getElementById('searchInput');
+                const searchButton = document.getElementById('searchButton');
                 
+                // Add event listeners
+                searchButton.addEventListener('click', searchNode);
+                searchInput.addEventListener('keyup', function(event) {
+                    if (event.key === 'Enter') {
+                        searchNode();
+                    }
+                });
+
                 // Physics
                 const btn_physics = document.getElementById('btn_physics');
                 btn_physics.onclick = togglePhysics;
