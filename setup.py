@@ -5,7 +5,7 @@ with open('README.md', 'r') as fin:
 
 setup(
     name="mkdocs-nodegraph",
-    version="0.4.0",
+    version="0.4.1",
     description="Node Graph plugin for Mkdocs Material",
     long_description=long_description,
     long_description_content_type="text/markdown",

@@ -51,10 +51,8 @@
                  width: {{width}};
                  height: {{height}};
                  background-color: {{bgcolor}};
-                 position: absolute;
                  border: 1px solid {{bgcolor}};
-                 float: left;
-                 z-index: 1;
+                 display: flex;
              }
 
              {% if nodes|length > 100 and physics_enabled %}
@@ -150,7 +148,7 @@
              }
 
              .card {
-                display: absolute;
+                min-width: 70vw;
                 min-height: 100vh;
             }
             
@@ -196,38 +194,72 @@
                 gap: 10px;
                 margin-bottom: 20px;
                 margin-top: 30px;
+                gap: 10px;
+            }
+
+            .search-container {
+              margin-bottom: 3px;
+              display: flex;
+              align-items: center;
+              gap: 3px;
+            }
+
+            .search-input {
+              width: 300px;
+              padding: 5px;
+              background-color: white;
+              color: rgb(27, 27, 27);
+              border: 1px solid #ddd;
+              border-radius: 4px;
+              font-size: 16px;
+            }
+
+            .up-btn {
+              width: 30px;
+              height: 30px;
+              display: flex;
+              background-color: hsl(0, 0%, 65%);
+              color: rgb(255, 255, 255);
+              border: 1px solid hsl(0, 0%, 65%);
+              border-radius: 4px;
+              font-size: 16px;
+              cursor: pointer;
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+            }
+            .up-btn:hover {
+              background-color:hsl(0, 0%, 71%);
+            }
+            .up-btn:active {
+              background-color:hsl(0, 0%, 65%);
             }
             
-            .search-input {
-                position: relative;
-                width: 100%;
-                margin: 3px;
-                padding: 5px 5px 5px 5px;
-                background-color: white;
-                color: rgb(27, 27, 27);
-                border: 1px solid #ddd;
-                border-radius: 4px;
-                font-size: 16px;
-                box-sizing: border-box;
+            .down-btn {
+              width: 30px;
+              height: 30px;
+              background-color: hsl(0, 0%, 65%);
+              color: rgb(255, 255, 255);
+              border: 1px solid hsl(0, 0%, 65%);
+              border-radius: 4px;
+              font-size: 16px;
+              box-sizing: border-box;
+              cursor: pointer;
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
             }
-            .search-button {
-                position: absolute;
-                right: 0px;
-                top: 37px;
-                background: none;
-                border: none;
-                cursor: pointer;
+            .down-btn:hover {
+              background-color:hsl(0, 0%, 71%);
             }
-            .search-icon {
-                width: 30px;
-                height: 30px;
+            .down-btn:active {
+              background-color:hsl(0, 0%, 65%);
             }
 
             .physics-btn {
               font-size: 13px;
-              position: relative;
               padding: 9px 9px;
-              margin: 3px;
+              margin-bottom: 3px;
               background-color: hsl(122, 39%, 49%);
               color: white;
               border: none;
@@ -242,9 +274,8 @@
 
             .save-btn {
               font-size: 13px;
-              position: relative;
               padding: 9px 9px;
-              margin: 3px;
+              margin-bottom: 3px;
               background-color: hsl(194, 42%, 45%);
               color: white;
               border: none;
@@ -259,9 +290,8 @@
 
             .reset-btn {
               font-size: 14px;
-              position: relative;
               padding: 9px 9px;
-              margin: 3px;
+              margin-bottom: 3px;
               background-color: hsl(0, 0%, 40%);
               color: white;
               border: none;
@@ -275,9 +305,8 @@
             }
             .home-btn {
                 font-size: 13px;
-                position: relative;
                 padding: 9px 9px;
-                margin: 3px;
+                margin-bottom: 3px;
                 background-color: hsl(0, 0%, 65%);
                 color: white;
                 border: none;
@@ -298,7 +327,6 @@
                 opacity: 0.9;
                 top: 0px;
                 left: 0px;
-                position: relative;
                 font-size: 16px;
                 font-weight: bold;
                 color: #4CAF50;
@@ -400,13 +428,24 @@
 
                 <div class="panel-content">
 
-                    <input type="text" id="searchInput" class="search-input" placeholder="Search...">
-                    <button id="searchButton" class="search-button">
-                        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                        </svg>
-                    </button>
+                    <div class="search-container">
+                        <input type="text" id="searchInput" class="search-input" placeholder="Search...">
+  
+                        <button id="upButton" class="up-btn" aria-label="Move up">
+                          <svg viewBox="0 0 24 24" width="40" height="40" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 19V5"></path>
+                            <polyline points="5 12 12 5 19 12"></polyline>
+                          </svg>
+                        </button>
+                        
+                        <button id="downButton" class="down-btn" aria-label="Move down">
+                          <svg viewBox="0 0 24 24" width="40" height="40" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 5v14"></path>
+                            <polyline points="19 12 12 19 5 12"></polyline>
+                          </svg>
+                        </button>
+  
+                      </div>
                     <button class="physics-btn" id="btn_physics" >Physics: ON</button>
                     <button class="save-btn" id="btn_save_node_positions" >Save</button>
                     <button class="home-btn" id="btn_home_location" >Home</button>
@@ -734,7 +773,11 @@
                 options.configure["container"] = document.getElementById("config");
                 {% endif %}
             
-                
+                // TODO New
+                // Track matched nodes and current position
+                let matchingNodes = [];
+                let currentNodeIndex = -1;
+
                 var viewState = {};
 
                 var default_preferences = {
@@ -821,7 +864,7 @@
                         btn.innerHTML = 'Physics: OFF';
                     }
                 }
-
+                
                 // Add Button and Slider to Control the Physics 
                 function togglePhysics() {
                     var btn = document.getElementById('btn_physics');
@@ -858,47 +901,131 @@
                     resetHighlight(); // Reset any previous highlights
                     
                     const searchTerm = document.getElementById("searchInput").value.toLowerCase();
-                    if (!searchTerm) return;
                     
-                    const matchingNodes = [];
+                    // Clear previous search results if search field is empty
+                    if (!searchTerm) {
+                      matchingNodes = [];
+                      currentNodeIndex = -1;
+                      return;
+                    }
+                    
+                    matchingNodes = [];
                     
                     // Find nodes containing the search term
                     nodes.forEach(node => {
                       if (node.label.toLowerCase().includes(searchTerm)) {
                         matchingNodes.push(node.id);
-                        
-                        // Highlight the matching node by changing font color and making it bold
-                        nodes.update({
-                          id: node.id,
-                          font: {
-                            color: "yellow",
-                            bold: true,
-                            size: (preferences.fontSize * 2),
-                          }
-                        });
                       }
                     });
                     
-                    // Focus the network on matched nodes if any found
+                    // Sort the matching nodes to ensure consistent navigation order
+                    matchingNodes.sort((a, b) => a - b);
+
+                    let scale = network.getScale()
+                    if (scale < 1){
+
+                      network.moveTo({
+                        scale: network.getScale() * 1.2
+                      })
+                    }
+                    // Highlight first matching node if any found
                     if (matchingNodes.length > 0) {
-                      network.focus(matchingNodes[0], {
-                        scale: 1.2,
-                        animation: true
+                      currentNodeIndex = 0;
+                      navigateResults("down");
+                    }
+
+                  }
+                  
+                  // Function to navigate through search results
+                  function navigateResults(direction) {
+                    if (matchingNodes.length === 0) return;
+                    
+                    // Reset highlight on current node
+                    if (currentNodeIndex >= 0) {
+                      nodes.update({
+                        id: matchingNodes[currentNodeIndex],
+                        font: {
+                          color: nodes.get(matchingNodes[currentNodeIndex]).color,
+                          bold: false,
+                          size: preferences.fontSize
+                        }
                       });
                     }
-                }
+                    
+                    // Update current index based on direction
+                    if (direction === 'up') {
+                      currentNodeIndex = (currentNodeIndex - 1 + matchingNodes.length) % matchingNodes.length;
+                      console.log('up, ', currentNodeIndex + "/" + matchingNodes.length);
+                    } else {
+                      currentNodeIndex = (currentNodeIndex + 1) % matchingNodes.length;
+                      console.log('down, ', currentNodeIndex + "/" + matchingNodes.length);
+                    }
+                    // Highlight the new current node
+                    highlightNode(matchingNodes[currentNodeIndex]);
+                  }
+                  
+                  // Function to highlight a specific node
+                  function highlightNode(nodeId) {
+                    nodes.update({
+                      id: nodeId,
+                      font: {
+                        color: "yellow",
+                        bold: true,
+                        size: preferences.fontSize * 1.2
+                      }
+                    });
+                    
+                    // Get the node position
+                    const nodePosition = network.getPositions([nodeId])[nodeId];
+                    const viewportCenter = network.getViewPosition();
+                    // Focus and center the node on screen
+                    network.moveTo({
+                      position: {
+                        x: nodePosition.x,
+                        y: nodePosition.y
+                      },
+                      offset: {x: 0, y: 0},
+                      animation: {
+                        duration: 500,
+                        easingFunction: "easeInOutQuad"
+                      }
+                    });
+                  }
 
+                  
+                  // Reset all node highlights
+                  function resetHighlight() {
+                    matchingNodes = [];
+                    currentNodeIndex = -1;
+                    
+                    nodes.forEach(node => {
+                      nodes.update({
+                      id: node.id,
+                      font: {
+                          color: node.color,
+                          bold: false,
+                          size: preferences.fontSize
+                      }
+                      });
+                    });
+
+                  }
+                  
+
+                // TODO New
                 // Get DOM elements
                 const searchInput = document.getElementById('searchInput');
-                const searchButton = document.getElementById('searchButton');
-                
-                // Add event listeners
-                searchButton.addEventListener('click', searchNode);
                 searchInput.addEventListener('keyup', function(event) {
                     if (event.key === 'Enter') {
                         searchNode();
                     }
                 });
+
+                const upButton = document.getElementById("upButton");
+                upButton.addEventListener('click', () => navigateResults('up'));
+
+                const downButton = document.getElementById("downButton");
+                downButton.addEventListener('click', () => navigateResults('down'));
 
                 // Physics
                 const btn_physics = document.getElementById('btn_physics');
