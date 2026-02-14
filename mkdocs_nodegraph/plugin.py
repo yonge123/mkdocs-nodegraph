@@ -72,6 +72,7 @@ class GraphViewPlugin(mkdocs.plugins.BasePlugin):
     def on_post_build(self, config, **kwargs):
         docs_dir = config["docs_dir"]
         site_dir = config['site_dir']
+
         config_graphfile = self.get_config_graphfile()
         if not config_graphfile.endswith(".html"):
             config_graphfile = config_graphfile + ".html"
