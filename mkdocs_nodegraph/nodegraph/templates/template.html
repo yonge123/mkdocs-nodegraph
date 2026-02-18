@@ -64,7 +64,7 @@
                  margin:auto auto auto auto;
                  border-radius:11px;
                  border:2px solid rgba(30,30,30,0.05);
-                 background: rgb(0, 173, 246); /* Old browsers */
+                 background: rgb(0, 173, 246); 
                  box-shadow: 2px 0px 4px rgba(0,0,0,0.4);
              }
 
@@ -119,7 +119,7 @@
              {% endif %}
 
              {% if tooltip_link %}
-             /* position absolute is important and the container has to be relative or absolute as well. */
+
           div.popup {
                  position:absolute;
                  top:0px;
@@ -133,7 +133,6 @@
                  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
           }
 
-          /* hide the original tooltip */
           .vis-tooltip {
             display:none;
           }
@@ -150,9 +149,8 @@
                 min-height: 100vh;
             }
             
-                        
             .left-panel {
-                background: #222222a6;
+                background: #4454704f;
                 width: 270px;
                 position: absolute;
                 z-index: 2;
@@ -196,199 +194,244 @@
             }
 
             .search-container {
-              margin-bottom: 3px;
+              margin-bottom: 8px;
               display: flex;
               align-items: center;
-              gap: 3px;
+              gap: 5px;
             }
 
             .search-input {
-              width: 300px;
-              padding: 5px;
-              background-color: white;
-              color: rgb(27, 27, 27);
-              border: 1px solid #ddd;
-              border-radius: 4px;
-              font-size: 16px;
+              flex: 1;
+              min-width: 0;
+              padding: 7px 10px;
+              background: var(--surface);
+              color: var(--text);
+              border: 1px solid var(--border);
+              border-radius: 6px;
+              font-size: 13px;
+              font-family: inherit;
+              outline: none;
+              transition: border-color 0.2s, box-shadow 0.2s;
+            }
+            .search-input::placeholder { color: var(--muted); }
+            .search-input:focus {
+              border-color: var(--accent);
+              box-shadow: 0 0 0 2px rgba(0,229,255,0.15);
             }
 
-            .up-btn {
-              width: 30px;
-              height: 30px;
-              display: flex;
-              background-color: hsl(0, 0%, 65%);
-              color: rgb(255, 255, 255);
-              border: 1px solid hsl(0, 0%, 65%);
-              border-radius: 4px;
-              font-size: 16px;
-              cursor: pointer;
-              display: inline-flex;
-              align-items: center;
-              justify-content: center;
-            }
-            .up-btn:hover {
-              background-color:hsl(0, 0%, 71%);
-            }
-            .up-btn:active {
-              background-color:hsl(0, 0%, 65%);
-            }
-            
+            .up-btn,
             .down-btn {
               width: 30px;
               height: 30px;
-              background-color: hsl(0, 0%, 65%);
-              color: rgb(255, 255, 255);
-              border: 1px solid hsl(0, 0%, 65%);
-              border-radius: 4px;
-              font-size: 16px;
-              box-sizing: border-box;
-              cursor: pointer;
+              flex-shrink: 0;
               display: inline-flex;
               align-items: center;
               justify-content: center;
+              background: var(--surface);
+              color: var(--text);
+              border: 1px solid var(--border);
+              border-radius: 6px;
+              cursor: pointer;
+              transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
             }
+            .up-btn:hover,
             .down-btn:hover {
-              background-color:hsl(0, 0%, 71%);
+              border-color: var(--accent);
+              background: rgba(0,229,255,0.08);
+              box-shadow: 0 0 6px rgba(0,229,255,0.2);
             }
+            .up-btn:active,
             .down-btn:active {
-              background-color:hsl(0, 0%, 65%);
+              background: rgba(0,229,255,0.18);
             }
+
+            .save-btn,
+            .home-btn,
+            .reset-btn {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 6px;
+              width: 100%;
+              padding: 8px 10px;
+              margin-bottom: 5px;
+              font-size: 12px;
+              font-family: inherit;
+              font-weight: 600;
+              letter-spacing: 0.05em;
+              text-transform: uppercase;
+              border: 1px solid transparent;
+              border-radius: 6px;
+              cursor: pointer;
+              transition: background 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.1s;
+            }
+            .save-btn:active,
+            .home-btn:active,
+            .reset-btn:active { transform: scale(0.97); }
 
             .save-btn {
-              font-size: 13px;
-              padding: 9px 9px;
-              margin-bottom: 3px;
-              background-color: hsl(194, 42%, 45%);
-              color: white;
-              border: none;
-              border-radius: 4px;
-              width: 100%;
-              cursor: pointer;
+              background: rgba(0,229,255,0.12);
+              color: var(--accent);
+              border-color: rgba(0,229,255,0.35);
+            }
+            .save-btn:hover {
+              background: rgba(0,229,255,0.22);
+              border-color: var(--accent);
+              box-shadow: 0 0 10px rgba(0,229,255,0.25);
             }
 
-            .save-btn:hover {
-              background-color: hsl(194, 41%, 53%);
+            .home-btn {
+              background: var(--surface);
+              color: var(--text);
+              border-color: var(--border);
+            }
+            .home-btn:hover {
+              border-color: var(--accent);
+              background: rgba(0,229,255,0.06);
             }
 
             .reset-btn {
-              font-size: 14px;
-              padding: 9px 9px;
-              margin-bottom: 3px;
-              background-color: hsl(0, 0%, 40%);
-              color: white;
-              border: none;
-              width: 100%;
-              border-radius: 4px;
-              cursor: pointer;
+              background: rgba(255,77,109,0.08);
+              color: #ff7a94;
+              border-color: rgba(255,77,109,0.3);
             }
-
             .reset-btn:hover {
-              background-color: hsl(0, 0%, 50%);
-            }
-            .home-btn {
-                font-size: 13px;
-                padding: 9px 9px;
-                margin-bottom: 3px;
-                background-color: hsl(0, 0%, 65%);
-                color: white;
-                border: none;
-                border-radius: 4px;
-                width: 100%;
-                cursor: pointer;
-              }
-  
-            .home-btn:hover {
-                background-color: hsl(0, 0%, 71%);
+              background: rgba(255,77,109,0.18);
+              border-color: var(--accent2);
+              box-shadow: 0 0 10px rgba(255,77,109,0.2);
             }
 
             input {
-                accent-color: gray;
+                accent-color: var(--accent);
             }
 
             .control-label {
-                opacity: 0.9;
-                top: 0px;
-                left: 0px;
-                font-size: 16px;
-                font-weight: bold;
-                color: #4CAF50;
-                display: block;
-                margin-bottom: 5px;
-                width: 100%;
+              display: flex;
+              align-items: center;
+              font-size: 12px;
+              font-weight: 600;
+              letter-spacing: 0.06em;
+              color: var(--text);
+              margin-bottom: 3px;
+              margin-top: 16px;
+              width: 100%;
             }
 
             input[type="range"] {
-                color: gray;
-                opacity: 0.5;
-                width: 100%;
-                height: 10px;
-                background: #d3d3d3;
-                outline: none;
-                border-radius: 8px;
-                margin-bottom: 6px;
+              -webkit-appearance: none;
+              appearance: none;
+              width: 100%;
+              height: 3px;
+              background: var(--border);
+              border-radius: 4px;
+              outline: none;
+              margin-bottom: 0;
+              cursor: pointer;
+              transition: opacity 0.2s;
+              opacity: 0.85;
+            }
+            input[type="range"]:hover { opacity: 1; }
+
+            input[type="range"]::-webkit-slider-thumb {
+              -webkit-appearance: none;
+              appearance: none;
+              width: 14px;
+              height: 14px;
+              border-radius: 50%;
+              background: var(--accent);
+              border: 2px solid var(--bg);
+              box-shadow: 0 0 6px rgba(0,229,255,0.5);
+              cursor: pointer;
+              transition: transform 0.15s, box-shadow 0.15s;
+            }
+            input[type="range"]::-webkit-slider-thumb:hover {
+              transform: scale(1.25);
+              box-shadow: 0 0 10px rgba(0,229,255,0.75);
+            }
+            input[type="range"]::-moz-range-thumb {
+              width: 14px;
+              height: 14px;
+              border-radius: 50%;
+              background: var(--accent);
+              border: 2px solid var(--bg);
+              box-shadow: 0 0 6px rgba(0,229,255,0.5);
+              cursor: pointer;
+            }
+            input[type="range"]::-webkit-slider-runnable-track {
+              background: linear-gradient(to right, rgba(0,229,255,0.4), var(--border));
+              border-radius: 4px;
+              height: 4px;
+            }
+            input[type="range"]::-moz-range-track {
+              background: var(--border);
+              border-radius: 4px;
+              height: 4px;
             }
 
             :root {
-              --bg:       #0d0f14;
-              --surface:  #151820;
-              --border:   #252a35;
-              --accent:   rgb(10, 165, 255);
-              --accent2:  #ff4d6d;
-              --accent3:  #b3ff5c;
-              --text:     #c8d0e0;
-              --muted:    #555f75;
-              --font-mono: 'IBM Plex Mono', monospace;
-              --font-sans: 'IBM Plex Sans', sans-serif;
+                --bg:       #0d0f14;
+                --surface:  #151820;
+                --border:   #252a35;
+                --accent:   #00e5ff;
+                --accent2:  #ff4d6d;
+                --accent3:  #b3ff5c;
+                --text:     #c8d0e0;
+                --muted:    #555f75;
+            }
+            .toggle-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
             }
 
             .toggle-item {
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                padding: 10px 12px;
-                border: 1px solid var(--border);
-                border-radius: 4px;
-                cursor: pointer;
-                transition: border-color 0.15s, background 0.15s;
-                user-select: none;
-                }
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: border-color 0.15s, background 0.15s;
+            user-select: none;
+            }
 
             .toggle-item:hover { border-color: var(--accent); background: rgba(0,229,255,0.04); }
 
             .toggle-item input[type="checkbox"] { display: none; }
 
             .toggle-dot {
-                width: 32px;
-                height: 18px;
-                border-radius: 9px;
-                background: var(--border);
-                position: relative;
-                flex-shrink: 0;
-                transition: background 0.2s;
+            width: 32px;
+            height: 18px;
+            border-radius: 9px;
+            background: var(--border);
+            position: relative;
+            flex-shrink: 0;
+            transition: background 0.2s;
             }
 
             .toggle-dot::after {
-                content: '';
-                position: absolute;
-                width: 12px;
-                height: 12px;
-                border-radius: 50%;
-                background: var(--muted);
-                top: 3px;
-                left: 3px;
-                transition: transform 0.2s, background 0.2s;
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--muted);
+            top: 3px;
+            left: 3px;
+            transition: transform 0.2s, background 0.2s;
             }
 
             input[type="checkbox"]:checked ~ .toggle-dot { background: rgba(0,229,255,0.2); }
             input[type="checkbox"]:checked ~ .toggle-dot::after {
-                transform: translateX(14px);
-                background: var(--accent);
+            transform: translateX(14px);
+            background: var(--accent);
             }
 
             .toggle-label {
-                font-family: var(--font-mono);
-                font-size: 12px;
-                color: var(--text);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text);
             }
             
         </style>
@@ -505,7 +548,7 @@
                         </label>
 
                         <label class="toggle-item">
-                        <input type="checkbox" id="toggleTagNodes" checked>
+                        <input type="checkbox" id="toggleTagNodes" unchecked>
                         <div class="toggle-dot"></div>
                         <span class="toggle-label">Tags</span>
                         </label>
@@ -516,7 +559,16 @@
                         <span class="toggle-label">Nodes</span>
                         </label>
 
+                        <label class="toggle-item">
+                        <input type="checkbox" id="toggleGrid" checked>
+                        <div class="toggle-dot"></div>
+                        <span class="toggle-label">Grid</span>
+                        </label>
+
                     </div>
+
+                    <span id="text_gridScale" class="control-label">Grid Scale</span>
+                    <input id="slider_gridScale" type="range" min="10" max="300" value="100"></input>
 
                     <span id="text_gravitationalConstant" class="control-label">
                         Gravitational Constant
@@ -920,28 +972,54 @@
                 }
 
                 function loadNodeVisibility() {
-                    var savedState = JSON.parse(localStorage.getItem('nodeVisibility'));
-                    if (savedState.tagnode != null) {
-                        const tagNode = document.getElementById('toggleTagNodes');
+                    getNOdeVisibility = localStorage.getItem('nodeVisibility');
+                    const tagNode = document.getElementById('toggleTagNodes');
+                    const fileNode = document.getElementById('toggleFileNodes');
+                    const getGrid = document.getElementById('toggleGrid');
+                    if (getNOdeVisibility){
+                        var savedState = JSON.parse(getNOdeVisibility);
+                        
+                        if (Object.hasOwn(savedState, 'tagnode')){
+                        
                         tagNode.checked = savedState.tagnode;
-                        setNodeTypeVisibility('tagnode', !tagNode.checked);
-                    }
-                    if (savedState.filenode != null) {
-                        const fileNode = document.getElementById('toggleFileNodes');
+                        }else {
+                        tagNode.checked = false;
+                        }
+                        setNodeTypeVisibility('tagnode', tagNode.checked);
+                        
+                        if (Object.hasOwn(savedState, 'filenode')){
                         fileNode.checked = savedState.filenode;
-                        setNodeTypeVisibility('filenode', !fileNode.checked);
+                        }else {
+                        fileNode.checked = true;
+                        }
+                        setNodeTypeVisibility('filenode', fileNode.checked);
+                        
+                        if (Object.hasOwn(savedState, 'grid')) {
+                        getGrid.checked = savedState.grid;
+                        }else {
+                        getGrid.checked = false;
+                        }
+                        applyGrid();
+                        
+                    }else {
+                        setNodeTypeVisibility('tagnode', tagNode.checked);
+                        setNodeTypeVisibility('filenode', fileNode.checked);
+                        applyGrid();
+
                     }
+                    console.log('loadNodeVisibility');
+                
                 }
 
                 function saveNodeVisibility(){
                     const tagNode = document.getElementById('toggleTagNodes');
-                    const tagNodeisChecked = tagNode.checked;
                     const fileNode = document.getElementById('toggleFileNodes');
-                    const fileNodeisChecked = fileNode.checked;
+                    const getGrid = document.getElementById('toggleGrid');
 
                     var nodeVisState = {
-                        tagnode: tagNodeisChecked,
-                        filenode: fileNodeisChecked
+                        tagnode: tagNode.checked,
+                        filenode: fileNode.checked,
+                        grid: getGrid.checked
                     };
                     localStorage.setItem('nodeVisibility', JSON.stringify(nodeVisState));
                 }
@@ -1144,16 +1222,16 @@
                 })
 
                 document.getElementById('toggleTagNodes').addEventListener('change', e => {
-                    setNodeTypeVisibility('tagnode', !e.target.checked);
+                    setNodeTypeVisibility('tagnode', e.target.checked);
                 })
 
                 document.getElementById('toggleFileNodes').addEventListener('change', e => {
-                    setNodeTypeVisibility('filenode', !e.target.checked);
+                    setNodeTypeVisibility('filenode', e.target.checked);
                 });
-
-                function setNodeTypeVisibility(nodetype, hidden) {
+                
+                function setNodeTypeVisibility(nodetype, visible) {
+                    hidden = !visible;
                     const matched = network.body.data.nodes.get({ filter: n => n.nodetype === nodetype });
-
                     network.body.data.nodes.update(matched.map(n => ({ id: n.id, hidden })));
 
                     const edgeIds = [
@@ -1161,6 +1239,25 @@
                     ];
                     edges.update(edgeIds.map(id => ({ id, hidden })));
                     saveNodeVisibility(nodetype, !hidden);
+                }
+                
+                document.getElementById('toggleGrid').addEventListener('change', applyGrid);
+                document.getElementById('slider_gridScale').addEventListener('input', applyGrid);
+
+                function applyGrid() {
+                    const net = document.getElementById('mynetwork');
+                    const visible = document.getElementById('toggleGrid').checked;
+                    if (!visible) { net.style.backgroundImage = 'none'; return; }
+                    const scale = parseInt(document.getElementById('slider_gridScale').value);
+                    const minor = Math.max(2, Math.round(scale / 5));
+                    net.style.backgroundImage = `
+                        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px),
+                        linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)`;
+                    net.style.backgroundSize = `${scale}px ${scale}px, ${scale}px ${scale}px, ${minor}px ${minor}px, ${minor}px ${minor}px`;
+                    net.style.backgroundPosition = '-1px -1px, -1px -1px, -1px -1px, -1px -1px';
+                    saveNodeVisibility();
                 }
 
                 // gravitationalConstant
