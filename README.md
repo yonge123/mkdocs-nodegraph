@@ -14,11 +14,11 @@ It allows you to create interactive visualizations of your documentation structu
 
 <p align="center">
 <a>
-<img alt="example_image_001.png" src="https://github.com/yonge123/mkdocs-nodegraph/blob/master/sources/example_image_001.png?raw=true" data-hpc="true" class="Box-sc-g0xbh4-0 fzFXnm">
+<img alt="example_image_002.png" src="https://github.com/yonge123/mkdocs-nodegraph/blob/master/sources/example_image_002.png?raw=true" data-hpc="true" class="Box-sc-g0xbh4-0 fzFXnm">
 </a>
 
 
-<!-- ![Example Network Graph Visualization](./sources/example_image_001.png) -->
+<!-- ![Example Network Graph Visualization](./sources/example_image_002.png) -->
 
 
 <br>
@@ -84,6 +84,19 @@ mdfile_site -> A website URL that opens on click while holding the Alt key
 
 
 <br>
+
+## Click Node
+
+`LMB` -> Open Node Page
+
+`Ctrl + LMB` -> Open Node Page in a New Tab
+
+`Alt + LMB` -> Open the mdfile_site Page from the metadata
+
+
+<br>
+
+
 
 ## mkdocs.yml Configuration
 
