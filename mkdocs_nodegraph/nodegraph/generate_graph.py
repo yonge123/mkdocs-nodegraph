@@ -195,6 +195,7 @@ class GraphBuilder():
                             label=mdfile.title, 
                             url=html, 
                             url2=alt_click_url,
+                            nodetype="filenode",
                             size=size, 
                             shape=shape, 
                             image=icon, 
@@ -228,13 +229,14 @@ class GraphBuilder():
                 nx_graph.add_node(tag_uid, 
                                 label=tag_name, 
                                 url="", 
-                                url2=alt_click_url,
+                                url2=alt_click_url, 
+                                nodetype="tagnode", 
                                 size=size, 
                                 shape=shape, 
                                 image=icon, 
                                 color=tag_color, 
-                                opacity=1,
-                                borderWidth=2,
+                                opacity=1, 
+                                borderWidth=2, 
                                 )
             
                 edge_len = count_links * 45 + ( idx * 35)
@@ -280,7 +282,8 @@ def load_pyvis_opts(file_path):
         return fout.read()
 
 
-def build_graph(docs_dir, site_dir, output_file, pyvis_opts_file, graph_opts_file, config_graphfile):
+def build_graph(docs_dir, site_dir, output_file, pyvis_opts_file, 
+                graph_opts_file, config_graphfile):
     if not os.path.isfile(pyvis_opts_file):
         raise IOError(f'Failed to find file -> "{pyvis_opts_file}"')
 
@@ -294,7 +297,7 @@ def build_graph(docs_dir, site_dir, output_file, pyvis_opts_file, graph_opts_fil
     parser.parse()
     mdfiles = parser.mdfiles
     tags = parser.tags
-
+    
     graph_config = read_config(graph_opts_file)
     graph_opts = load_graph_opts(graph_config)
     pyvis_opts = load_pyvis_opts(pyvis_opts_file)

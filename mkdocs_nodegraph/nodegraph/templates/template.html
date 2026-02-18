@@ -3,27 +3,25 @@
         <meta charset="utf-8">
         {% if cdn_resources=="local" %}
             
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/10.0.2/dist/dist/vis-network.min.css">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/10.0.2/dist/vis-network.min.js"></script>
             {% if select_menu or filter_menu %}
                 <link href="lib/tom-select/tom-select.css" rel="stylesheet">
                 <script src="lib/tom-select/tom-select.complete.min.js"></script>
             {%  endif %}
         {% elif cdn_resources=="in_line" %}
-            <style>{%  include 'lib/vis-9.1.2/vis-network.css' %}</style>
-            <script>{%  include 'lib/vis-9.1.2/vis-network.min.js' %}</script>
+            <style>{%  include 'libs/vis-network/10.0.2/dist/dist/vis-network.min.css' %}</style>
+            <script>{%  include 'libs/vis-network/10.0.2/dist/vis-network.min.js' %}</script>
             {% if select_menu or filter_menu %}
                 <style>{%  include 'lib/tom-select/tom-select.css' %}</style>
                 <script>{%  include 'lib/tom-select/tom-select.complete.min.js' %}</script>
             {%  endif %}
         {%  elif cdn_resources=="remote" %}
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-            {#            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.0.4/dist/dist/vis-network.min.css" integrity="sha512-+5tJeVsSE2tSnmKB5SWOD0GsYA5dOP0B/FSv7I2GYhdOcyjJq81Q1St3qgJgInwreAdNuw0KGJ0FOaxOJ0E4yw==" crossorigin="anonymous" referrerpolicy="no-referrer" />#}
-            {#            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.0.4/dist/vis-network.js"#}
-            {#                integrity="sha512-CEbUhbSq35hCqBH8ckfAkH1Tcua5NEywtEzwiJ+BUC4EIZkC7vyta3ivZu/WqJhK1qHTurO3hwHsErU3HHjwIA=="#}
-            {#                crossorigin="anonymous"#}
-            {#                referrerpolicy="no-referrer"></script>#}
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/10.0.2/dist/dist/vis-network.min.css">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/10.0.2/dist/vis-network.min.js"></script>
+
+            {#            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/10.0.2/dist/dist/vis-network.min.css" />#}
+            {#            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/10.0.2/dist/vis-network.min.js" />#}
             {% if select_menu or filter_menu %}
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tom-select/2.0.0-rc.4/css/tom-select.min.css" integrity="sha512-43fHB3GLgZfz8QXl1RPQ8O66oIgv3po9cJ5erMt1c4QISq9dYb195T3vr5ImnJPXuVroKcGBPXBFKETW8jrPNQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/tom-select/2.0.0-rc.4/js/tom-select.complete.js" integrity="sha512-jeF9CfnvzDiw9G9xiksVjxR2lib44Gnovvkv+3CgCG6NXCD4gqlA5nDAVW5WjpA+i+/zKsUWV5xNEbW1X/HH0Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -256,22 +254,6 @@
               background-color:hsl(0, 0%, 65%);
             }
 
-            .physics-btn {
-              font-size: 13px;
-              padding: 9px 9px;
-              margin-bottom: 3px;
-              background-color: hsl(122, 39%, 49%);
-              color: white;
-              border: none;
-              border-radius: 4px;
-              width: 100%;
-              cursor: pointer;
-            }
-
-            .physics-btn:hover {
-              background-color:hsl(121, 47%, 57%);
-            }
-
             .save-btn {
               font-size: 13px;
               padding: 9px 9px;
@@ -346,6 +328,69 @@
                 margin-bottom: 6px;
             }
 
+            :root {
+              --bg:       #0d0f14;
+              --surface:  #151820;
+              --border:   #252a35;
+              --accent:   rgb(10, 165, 255);
+              --accent2:  #ff4d6d;
+              --accent3:  #b3ff5c;
+              --text:     #c8d0e0;
+              --muted:    #555f75;
+              --font-mono: 'IBM Plex Mono', monospace;
+              --font-sans: 'IBM Plex Sans', sans-serif;
+            }
+
+            .toggle-item {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 10px 12px;
+                border: 1px solid var(--border);
+                border-radius: 4px;
+                cursor: pointer;
+                transition: border-color 0.15s, background 0.15s;
+                user-select: none;
+                }
+
+            .toggle-item:hover { border-color: var(--accent); background: rgba(0,229,255,0.04); }
+
+            .toggle-item input[type="checkbox"] { display: none; }
+
+            .toggle-dot {
+                width: 32px;
+                height: 18px;
+                border-radius: 9px;
+                background: var(--border);
+                position: relative;
+                flex-shrink: 0;
+                transition: background 0.2s;
+            }
+
+            .toggle-dot::after {
+                content: '';
+                position: absolute;
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                background: var(--muted);
+                top: 3px;
+                left: 3px;
+                transition: transform 0.2s, background 0.2s;
+            }
+
+            input[type="checkbox"]:checked ~ .toggle-dot { background: rgba(0,229,255,0.2); }
+            input[type="checkbox"]:checked ~ .toggle-dot::after {
+                transform: translateX(14px);
+                background: var(--accent);
+            }
+
+            .toggle-label {
+                font-family: var(--font-mono);
+                font-size: 12px;
+                color: var(--text);
+            }
+            
         </style>
     </head>
 
@@ -446,10 +491,32 @@
                         </button>
   
                       </div>
-                    <button class="physics-btn" id="btn_physics" >Physics: ON</button>
+
                     <button class="save-btn" id="btn_save_node_positions" >Save</button>
                     <button class="home-btn" id="btn_home_location" >Home</button>
                     <button class="reset-btn" id="btn_reset_preferences" >Reset</button>
+
+                    <div class="toggle-group">
+
+                        <label class="toggle-item">
+                        <input type="checkbox" id="togglePhysics" checked>
+                        <div class="toggle-dot"></div>
+                        <span class="toggle-label">Physics</span>
+                        </label>
+
+                        <label class="toggle-item">
+                        <input type="checkbox" id="toggleTagNodes" checked>
+                        <div class="toggle-dot"></div>
+                        <span class="toggle-label">Tags</span>
+                        </label>
+
+                        <label class="toggle-item">
+                        <input type="checkbox" id="toggleFileNodes" checked>
+                        <div class="toggle-dot"></div>
+                        <span class="toggle-label">Nodes</span>
+                        </label>
+
+                    </div>
 
                     <span id="text_gravitationalConstant" class="control-label">
                         Gravitational Constant
@@ -830,6 +897,7 @@
                     }
                     toggleSaveNodePositions()
                 });
+
                 function loadViewState(){
                     var savedState = JSON.parse(localStorage.getItem('networkViewState'));
                     if (savedState) {
@@ -843,6 +911,7 @@
                 function saveViewState(){
                     var viewPosition = network.getViewPosition();
                     var scale = network.getScale();
+
                     var viewState = {
                         position: viewPosition,
                         scale: scale
@@ -850,35 +919,60 @@
                     localStorage.setItem('networkViewState', JSON.stringify(viewState));
                 }
 
+                function loadNodeVisibility() {
+                    var savedState = JSON.parse(localStorage.getItem('nodeVisibility'));
+                    if (savedState.tagnode != null) {
+                        const tagNode = document.getElementById('toggleTagNodes');
+                        tagNode.checked = savedState.tagnode;
+                        setNodeTypeVisibility('tagnode', !tagNode.checked);
+                    }
+                    if (savedState.filenode != null) {
+                        const fileNode = document.getElementById('toggleFileNodes');
+                        fileNode.checked = savedState.filenode;
+                        setNodeTypeVisibility('filenode', !fileNode.checked);
+                    }
+                }
+
+                function saveNodeVisibility(){
+                    const tagNode = document.getElementById('toggleTagNodes');
+                    const tagNodeisChecked = tagNode.checked;
+                    const fileNode = document.getElementById('toggleFileNodes');
+                    const fileNodeisChecked = fileNode.checked;
+
+                    var nodeVisState = {
+                        tagnode: tagNodeisChecked,
+                        filenode: fileNodeisChecked
+                    };
+                    localStorage.setItem('nodeVisibility', JSON.stringify(nodeVisState));
+                }
+
                 function savePreferences(){
                     localStorage.setItem('preferences', JSON.stringify(preferences));
                 }
 
                 function loadPhysics(){
-                    var btn = document.getElementById('btn_physics');
                     if (preferences.physics == true) {
                         network.setOptions( { physics: true } );
-                        btn.innerHTML = 'Physics: ON';
                     } else {
                         network.setOptions( { physics: false } );
-                        btn.innerHTML = 'Physics: OFF';
                     }
                 }
                 
                 // Add Button and Slider to Control the Physics 
                 function togglePhysics() {
-                    var btn = document.getElementById('btn_physics');
                     var physics = !network.physics.options.enabled;
                     network.physics.enabled = physics;
                     
                     if (physics) {
                         preferences.physics = true;
                         network.setOptions( { physics: true } );
-                        btn.innerHTML = 'Physics: ON';
+                        const physicsChk = document.getElementById('togglePhysics');
+                        physicsChk.checked = true;
                     } else {
                         preferences.physics = false;
                         network.setOptions( { physics: false } );
-                        btn.innerHTML = 'Physics: OFF';
+                        const physicsChk = document.getElementById('togglePhysics');
+                        physicsChk.checked = false;
                     }
                     savePreferences();
                 }
@@ -1011,8 +1105,6 @@
 
                   }
                   
-
-                // TODO New
                 // Get DOM elements
                 const searchInput = document.getElementById('searchInput');
                 searchInput.addEventListener('keyup', function(event) {
@@ -1026,10 +1118,6 @@
 
                 const downButton = document.getElementById("downButton");
                 downButton.addEventListener('click', () => navigateResults('down'));
-
-                // Physics
-                const btn_physics = document.getElementById('btn_physics');
-                btn_physics.onclick = togglePhysics;
                 
                 // Save as Startup
                 const btn_save_node_positions = document.getElementById('btn_save_node_positions');
@@ -1040,6 +1128,7 @@
                     saveNodePositions();
                     savePreferences();
                     saveViewState();
+                    saveNodeVisibility();
                 }
                 
                 // Home Location
@@ -1049,6 +1138,30 @@
                 // Reset
                 const btn_reset_preferences = document.getElementById('btn_reset_preferences');
                 btn_reset_preferences.onclick = resetPreferences;
+
+                document.getElementById('togglePhysics').addEventListener('change', e => {
+                    togglePhysics(e.target.checked);
+                })
+
+                document.getElementById('toggleTagNodes').addEventListener('change', e => {
+                    setNodeTypeVisibility('tagnode', !e.target.checked);
+                })
+
+                document.getElementById('toggleFileNodes').addEventListener('change', e => {
+                    setNodeTypeVisibility('filenode', !e.target.checked);
+                });
+
+                function setNodeTypeVisibility(nodetype, hidden) {
+                    const matched = network.body.data.nodes.get({ filter: n => n.nodetype === nodetype });
+
+                    network.body.data.nodes.update(matched.map(n => ({ id: n.id, hidden })));
+
+                    const edgeIds = [
+                        ...new Set(matched.flatMap(n => network.getConnectedEdges(n.id)))
+                    ];
+                    edges.update(edgeIds.map(id => ({ id, hidden })));
+                    saveNodeVisibility(nodetype, !hidden);
+                }
 
                 // gravitationalConstant
                 const slider_gravitationalConstant = document.getElementById('slider_gravitationalConstant');
@@ -1172,6 +1285,7 @@
                     on_slider_edge_input();
                     loadPhysics();
                     loadViewState();
+                    loadNodeVisibility();
                 }
                 
                 function homeLocation(){
@@ -1184,7 +1298,6 @@
                 }
 
                 function resetPreferences(){
-                    document.getElementById('btn_physics').value = default_preferences.physics;
                     document.getElementById('slider_gravitationalConstant').value = default_preferences.gravitationalConstant;
                     document.getElementById('slider_centralGravity').value = default_preferences.centralGravity;
                     document.getElementById('slider_springConstant').value = default_preferences.springConstant;
@@ -1207,6 +1320,9 @@
                             if (node.url) {
                                 if (params.event.srcEvent.ctrlKey) {
                                     window.open(node.url, '_blank');
+                                }
+                                else if (params.event.srcEvent.altKey) {
+                                    window.open(node.url2, '_blank');
                                 }else {
                                     window.location.href = node.url;
                                 }
@@ -1245,27 +1361,6 @@
                 
                 loadPreferences();
 
-                  // seet physic on / off by dragStart dragEnd
-                //   network.on("dragStart", function(params) {
-                //       if (params.nodes.length > 0) {
-                //         network.setOptions( { physics: true } );
-                //       }
-                //     });
-
-                //   network.on("dragEnd", function(params) {
-                //       if (params.nodes.length > 0) {
-
-                //         network.setOptions( { physics: false } );
-                      
-                //       }
-                //     });
-
-                //   setTimeout(function() {
-                //     network.setOptions( { physics: false } );
-                //     }, 12000);
-                    
-
-                
 
                   {% if neighborhood_highlight %}
                     network.on("click", neighbourhoodHighlight);
