@@ -312,60 +312,46 @@
               font-weight: 600;
               letter-spacing: 0.06em;
               color: var(--text);
-              margin-bottom: 3px;
+              margin-bottom: 0px;
               margin-top: 16px;
               width: 100%;
             }
 
             input[type="range"] {
-              -webkit-appearance: none;
-              appearance: none;
-              width: 100%;
-              height: 3px;
-              background: var(--border);
-              border-radius: 4px;
-              outline: none;
-              margin-bottom: 0;
-              cursor: pointer;
-              transition: opacity 0.2s;
-              opacity: 0.85;
+                -webkit-appearance: none;
+                appearance: none;
+                width: 100%;
+                height: 14px; /* match thumb height so centering works */
+                background: transparent; /* move track bg to the track pseudo-element */
+                border-radius: 4px;
+                outline: none;
+                margin-bottom: 0;
+                cursor: pointer;
+                transition: opacity 0.2s;
+                opacity: 0.85;
             }
-            input[type="range"]:hover { opacity: 1; }
+
+            input[type="range"]::-webkit-slider-runnable-track {
+                background: linear-gradient(to right, rgba(0,229,255,0.4), var(--border));
+                border-radius: 4px;
+                height: 4px;
+                /* center the 4px track within the 14px input height */
+                margin-block: auto;
+            }
 
             input[type="range"]::-webkit-slider-thumb {
-              -webkit-appearance: none;
-              appearance: none;
-              width: 14px;
-              height: 14px;
-              border-radius: 50%;
-              background: var(--accent);
-              border: 2px solid var(--bg);
-              box-shadow: 0 0 6px rgba(0,229,255,0.5);
-              cursor: pointer;
-              transition: transform 0.15s, box-shadow 0.15s;
-            }
-            input[type="range"]::-webkit-slider-thumb:hover {
-              transform: scale(1.25);
-              box-shadow: 0 0 10px rgba(0,229,255,0.75);
-            }
-            input[type="range"]::-moz-range-thumb {
-              width: 14px;
-              height: 14px;
-              border-radius: 50%;
-              background: var(--accent);
-              border: 2px solid var(--bg);
-              box-shadow: 0 0 6px rgba(0,229,255,0.5);
-              cursor: pointer;
-            }
-            input[type="range"]::-webkit-slider-runnable-track {
-              background: linear-gradient(to right, rgba(0,229,255,0.4), var(--border));
-              border-radius: 4px;
-              height: 4px;
-            }
-            input[type="range"]::-moz-range-track {
-              background: var(--border);
-              border-radius: 4px;
-              height: 4px;
+                -webkit-appearance: none;
+                appearance: none;
+                width: 14px;
+                height: 14px;
+                border-radius: 50%;
+                background: var(--accent);
+                border: 2px solid var(--bg);
+                box-shadow: 0 0 6px rgba(0,229,255,0.5);
+                cursor: pointer;
+                transition: transform 0.15s, box-shadow 0.15s;
+                /* pull thumb up to center on the 4px track */
+                margin-top: -5px;
             }
 
             :root {
@@ -900,27 +886,35 @@
                 var viewState = {};
 
                 var default_preferences = {
+                    "physics": true,
+                    "showTags": false,
+                    "showNodes": true,
+                    "showGrid": true,
+                    "gridScale": 120,
+                    "gravitationalConstant": 437,
                     "centralGravity": 8,
+                    "springConstant": 5,
                     "damping": 20,
+                    "fontSize": 43,
+                    "nodeSize": 11,
                     "edgeLength": 4,
                     "edgeWidth": 6,
-                    "fontSize": 43,
-                    "gravitationalConstant": 437,
-                    "nodeSize": 11,
-                    "physics": true,
-                    "springConstant": 5,
                 };
                 
                 var preferences = {
+                    "physics": true,
+                    "showTags": false,
+                    "showNodes": true,
+                    "showGrid": true,
+                    "gridScale": 120,
+                    "gravitationalConstant": 437,
                     "centralGravity": 8,
+                    "springConstant": 5,
                     "damping": 20,
+                    "fontSize": 43,
+                    "nodeSize": 11,
                     "edgeLength": 4,
                     "edgeWidth": 6,
-                    "fontSize": 43,
-                    "gravitationalConstant": 437,
-                    "nodeSize": 11,
-                    "physics": true,
-                    "springConstant": 5,
                 };
 
                 storedPreferences = localStorage.getItem('preferences');
@@ -971,88 +965,8 @@
                     localStorage.setItem('networkViewState', JSON.stringify(viewState));
                 }
 
-                function loadNodeVisibility() {
-                    getNOdeVisibility = localStorage.getItem('nodeVisibility');
-                    const tagNode = document.getElementById('toggleTagNodes');
-                    const fileNode = document.getElementById('toggleFileNodes');
-                    const getGrid = document.getElementById('toggleGrid');
-                    if (getNOdeVisibility){
-                        var savedState = JSON.parse(getNOdeVisibility);
-                        
-                        if (Object.hasOwn(savedState, 'tagnode')){
-                        
-                        tagNode.checked = savedState.tagnode;
-                        }else {
-                        tagNode.checked = false;
-                        }
-                        setNodeTypeVisibility('tagnode', tagNode.checked);
-                        
-                        if (Object.hasOwn(savedState, 'filenode')){
-                        fileNode.checked = savedState.filenode;
-                        }else {
-                        fileNode.checked = true;
-                        }
-                        setNodeTypeVisibility('filenode', fileNode.checked);
-                        
-                        if (Object.hasOwn(savedState, 'grid')) {
-                        getGrid.checked = savedState.grid;
-                        }else {
-                        getGrid.checked = false;
-                        }
-                        applyGrid();
-                        
-                    }else {
-                        setNodeTypeVisibility('tagnode', tagNode.checked);
-                        setNodeTypeVisibility('filenode', fileNode.checked);
-                        applyGrid();
-
-                    }
-                    console.log('loadNodeVisibility');
-                
-                }
-
-                function saveNodeVisibility(){
-                    const tagNode = document.getElementById('toggleTagNodes');
-                    const fileNode = document.getElementById('toggleFileNodes');
-                    const getGrid = document.getElementById('toggleGrid');
-
-                    var nodeVisState = {
-                        tagnode: tagNode.checked,
-                        filenode: fileNode.checked,
-                        grid: getGrid.checked
-                    };
-                    localStorage.setItem('nodeVisibility', JSON.stringify(nodeVisState));
-                }
-
                 function savePreferences(){
                     localStorage.setItem('preferences', JSON.stringify(preferences));
-                }
-
-                function loadPhysics(){
-                    if (preferences.physics == true) {
-                        network.setOptions( { physics: true } );
-                    } else {
-                        network.setOptions( { physics: false } );
-                    }
-                }
-                
-                // Add Button and Slider to Control the Physics 
-                function togglePhysics() {
-                    var physics = !network.physics.options.enabled;
-                    network.physics.enabled = physics;
-                    
-                    if (physics) {
-                        preferences.physics = true;
-                        network.setOptions( { physics: true } );
-                        const physicsChk = document.getElementById('togglePhysics');
-                        physicsChk.checked = true;
-                    } else {
-                        preferences.physics = false;
-                        network.setOptions( { physics: false } );
-                        const physicsChk = document.getElementById('togglePhysics');
-                        physicsChk.checked = false;
-                    }
-                    savePreferences();
                 }
 
                 // Reset all node highlights
@@ -1206,7 +1120,6 @@
                     saveNodePositions();
                     savePreferences();
                     saveViewState();
-                    saveNodeVisibility();
                 }
                 
                 // Home Location
@@ -1217,47 +1130,122 @@
                 const btn_reset_preferences = document.getElementById('btn_reset_preferences');
                 btn_reset_preferences.onclick = resetPreferences;
 
-                document.getElementById('togglePhysics').addEventListener('change', e => {
-                    togglePhysics(e.target.checked);
-                })
+                const chk_physics = document.getElementById('togglePhysics');
+                chk_physics.addEventListener('change', e => {on_toggle_physics(e.target.checked);});
+                
+                function load_physics(){
+                    const chk_physics = document.getElementById('togglePhysics');
+                    chk_physics.checked = preferences.physics;
+                    on_toggle_physics(preferences.physics)
+                }
 
-                document.getElementById('toggleTagNodes').addEventListener('change', e => {
-                    setNodeTypeVisibility('tagnode', e.target.checked);
-                })
+                // Add Button and Slider to Control the Physics 
+                function on_toggle_physics(physics) {
+                    network.physics.enabled = physics;
+                    network.setOptions( { physics: physics } );
+                    preferences.physics = physics;
+                    savePreferences();
+                }
 
-                document.getElementById('toggleFileNodes').addEventListener('change', e => {
-                    setNodeTypeVisibility('filenode', e.target.checked);
+                const chk_show_tags = document.getElementById('toggleTagNodes');
+                chk_show_tags.addEventListener('change', e => {
+                    on_node_vis_changed('tagnode', e.target.checked);
                 });
                 
-                function setNodeTypeVisibility(nodetype, visible) {
+                function load_show_tags(){
+                    const chk_show_tags = document.getElementById('toggleTagNodes');
+                    chk_show_tags.checked = preferences.showTags;
+                    on_node_vis_changed('tagnode', preferences.showTags);
+                }
+
+                const chk_show_nodes = document.getElementById('toggleFileNodes');
+                chk_show_nodes.addEventListener('change', e => {
+                    on_node_vis_changed('filenode', e.target.checked);
+                });
+
+                function load_show_nodes(){
+                    const chk_show_nodes = document.getElementById('toggleFileNodes');
+                    chk_show_nodes.checked = preferences.showNodes;
+                    on_node_vis_changed('filenode', preferences.showNodes);
+                }
+
+                // Store removed edges per nodetype so they can be restored later
+                var removedEdgesByType = {};
+
+                function on_node_vis_changed(nodetype, visible) {
                     hidden = !visible;
                     const matched = network.body.data.nodes.get({ filter: n => n.nodetype === nodetype });
                     network.body.data.nodes.update(matched.map(n => ({ id: n.id, hidden })));
+                    
+                    if (hidden) {
+                        // Collect all edges connected to the hidden nodes
+                        const connectedEdgeIds = new Set(matched.flatMap(n => network.getConnectedEdges(n.id)));
+                        const edgesToRemove = edges.get(Array.from(connectedEdgeIds));
+                        
+                        // Save them keyed by nodetype so we can restore later
+                        if (!removedEdgesByType[nodetype]) removedEdgesByType[nodetype] = [];
+                        edgesToRemove.forEach(e => {
+                            // Avoid duplicates if multiple nodetypes share an edge
+                            if (!removedEdgesByType[nodetype].find(r => r.id === e.id)) {
+                                removedEdgesByType[nodetype].push(e);
+                            }
+                        });
+                        
+                        edges.remove(Array.from(connectedEdgeIds));
+                    } else {
+                        // Restore edges that were removed for this nodetype,
+                        // but only if both endpoint nodes are currently visible
+                        const toRestore = removedEdgesByType[nodetype] || [];
+                        const validEdges = toRestore.filter(e => {
+                            const fromNode = network.body.data.nodes.get(e.from);
+                            const toNode   = network.body.data.nodes.get(e.to);
+                            return fromNode && !fromNode.hidden && toNode && !toNode.hidden;
+                        });
+                        if (validEdges.length > 0) edges.add(validEdges);
+                        removedEdgesByType[nodetype] = [];
+                    }
 
-                    const edgeIds = [
-                        ...new Set(matched.flatMap(n => network.getConnectedEdges(n.id)))
-                    ];
-                    edges.update(edgeIds.map(id => ({ id, hidden })));
-                    saveNodeVisibility(nodetype, !hidden);
+                    if (nodetype == "filenode"){
+                        preferences.showNodes = visible;
+                    }
+                    else if (nodetype == "tagnode"){
+                        preferences.showTags = visible;
+                    }
+                    savePreferences();
                 }
                 
-                document.getElementById('toggleGrid').addEventListener('change', applyGrid);
-                document.getElementById('slider_gridScale').addEventListener('input', applyGrid);
+                const chk_show_grid = document.getElementById('toggleGrid');
+                chk_show_grid.addEventListener('change', on_grid_changed);
+                
+                const slider_grid_scale = document.getElementById('slider_gridScale')
+                slider_grid_scale.addEventListener('input', on_grid_changed);
+                
+                function load_grid(){
+                    const chk_show_grid = document.getElementById('toggleGrid');
+                    chk_show_grid.checked = preferences.showGrid;
+  
+                    const slider_grid_scale = document.getElementById('slider_gridScale')
+                    slider_grid_scale.value = preferences.gridScale;
 
-                function applyGrid() {
+                    on_grid_changed();
+                }
+
+                function on_grid_changed() {
                     const net = document.getElementById('mynetwork');
                     const visible = document.getElementById('toggleGrid').checked;
                     if (!visible) { net.style.backgroundImage = 'none'; return; }
                     const scale = parseInt(document.getElementById('slider_gridScale').value);
                     const minor = Math.max(2, Math.round(scale / 5));
                     net.style.backgroundImage = `
-                        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px),
-                        linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)`;
+                    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px),
+                    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)`;
                     net.style.backgroundSize = `${scale}px ${scale}px, ${scale}px ${scale}px, ${minor}px ${minor}px, ${minor}px ${minor}px`;
                     net.style.backgroundPosition = '-1px -1px, -1px -1px, -1px -1px, -1px -1px';
-                    saveNodeVisibility();
+                    preferences.showGrid = visible;
+                    preferences.gridScale = scale;
+                    savePreferences();
                 }
 
                 // gravitationalConstant
@@ -1380,9 +1368,11 @@
                     on_slider_fontSize_input();
                     on_slider_nodeSize_input();
                     on_slider_edge_input();
-                    loadPhysics();
                     loadViewState();
-                    loadNodeVisibility();
+                    load_physics();
+                    load_show_nodes();
+                    load_show_tags();
+                    load_grid();
                 }
                 
                 function homeLocation(){
@@ -1395,6 +1385,11 @@
                 }
 
                 function resetPreferences(){
+
+                    document.getElementById('toggleTagNodes').checked = default_preferences.showTags;
+                    document.getElementById('toggleFileNodes').checked = default_preferences.showNodes;
+                    document.getElementById('toggleGrid').checked = default_preferences.showGrid;
+                    document.getElementById('slider_gridScale').value = default_preferences.gridScale;
                     document.getElementById('slider_gravitationalConstant').value = default_preferences.gravitationalConstant;
                     document.getElementById('slider_centralGravity').value = default_preferences.centralGravity;
                     document.getElementById('slider_springConstant').value = default_preferences.springConstant;
@@ -1435,21 +1430,23 @@
                         scale: viewState.scale
                     });
 
-                    // preferences.physics = true;
-
                     node_positions = {};
                     saveNodePositions();
 
                     preferences = {
+                        "physics": true,
+                        "showTags": false,
+                        "showNodes": true,
+                        "showGrid": true,
+                        "gridScale": 120,
+                        "gravitationalConstant": 437,
                         "centralGravity": 8,
+                        "springConstant": 5,
                         "damping": 20,
+                        "fontSize": 43,
+                        "nodeSize": 11,
                         "edgeLength": 4,
                         "edgeWidth": 6,
-                        "fontSize": 43,
-                        "gravitationalConstant": 437,
-                        "nodeSize": 11,
-                        "physics": true,
-                        "springConstant": 5,
                     };
                     savePreferences();
 
