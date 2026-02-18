@@ -131,7 +131,7 @@ class GraphBuilder():
 
         # self.net.show_buttons(filter_=['physics', 'nodes', 'links'])
     # build graph from parsed markdown pages
-    def build(self, mdfiles):
+    def build(self, mdfiles, tags=None):
         nx_graph = nx.Graph()
         edget_info_dic = dict()
         color_list = copy.deepcopy(beautifulcolors)
@@ -195,6 +195,7 @@ class GraphBuilder():
                             label=mdfile.title, 
                             url=html, 
                             url2=alt_click_url,
+                            nodetype="filenode",
                             size=size, 
                             shape=shape, 
                             image=icon, 
@@ -211,6 +212,40 @@ class GraphBuilder():
                             max_link = len(data_dic[link_uid])
                     edge_len = max_link * 45 + ( idx * 35)
                     nx_graph.add_edge(mdfile.uid, link_uid, length=edge_len)
+
+        if tags:
+            for idx, tag in enumerate(tags):
+                tag_name = tag["name"]
+                tag_uid = tag["uid"]
+                link_uids = tag["link_uids"]
+                count_links = len(link_uids)
+                icon = ""
+                shape="dot"
+                alt_click_url = ""
+                tag_color = "#FFD415"
+                size = 50 + (count_links * 4)
+                if size > 120:
+                    size = 120
+                nx_graph.add_node(tag_uid, 
+                                label=tag_name, 
+                                url="", 
+                                url2=alt_click_url, 
+                                nodetype="tagnode", 
+                                size=size, 
+                                shape=shape, 
+                                image=icon, 
+                                color=tag_color, 
+                                opacity=1, 
+                                borderWidth=2, 
+                                )
+            
+                edge_len = count_links * 45 + ( idx * 35)
+                if link_uids:
+                    for link_uid in link_uids:
+                        nx_graph.add_edge(tag_uid, 
+                                          link_uid, 
+                                          length=edge_len
+                                          )
 
         # self.net.from_nx(nx_graph) 
         self.net.from_nx(nx_graph, 
@@ -247,7 +282,8 @@ def load_pyvis_opts(file_path):
         return fout.read()
 
 
-def build_graph(docs_dir, site_dir, output_file, pyvis_opts_file, graph_opts_file, config_graphfile):
+def build_graph(docs_dir, site_dir, output_file, pyvis_opts_file, 
+                graph_opts_file, config_graphfile):
     if not os.path.isfile(pyvis_opts_file):
         raise IOError(f'Failed to find file -> "{pyvis_opts_file}"')
 
@@ -258,14 +294,16 @@ def build_graph(docs_dir, site_dir, output_file, pyvis_opts_file, graph_opts_fil
     os.makedirs(outputDir, exist_ok=True)
 
     parser = MdParser(docs_dir)
-    mdfiles = parser.parse()
-
+    parser.parse()
+    mdfiles = parser.mdfiles
+    tags = parser.tags
+    
     graph_config = read_config(graph_opts_file)
     graph_opts = load_graph_opts(graph_config)
     pyvis_opts = load_pyvis_opts(pyvis_opts_file)
     
     builder = GraphBuilder(pyvis_opts, graph_opts, output_file, config_graphfile, docs_dir, site_dir)
-    builder.build(mdfiles)
+    builder.build(mdfiles, tags)
 
 
 def rebuild_graph_html(index_path, graph_path, output_path=None):

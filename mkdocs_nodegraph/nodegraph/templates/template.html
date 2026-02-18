@@ -3,27 +3,25 @@
         <meta charset="utf-8">
         {% if cdn_resources=="local" %}
             
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/10.0.2/dist/dist/vis-network.min.css">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/10.0.2/dist/vis-network.min.js"></script>
             {% if select_menu or filter_menu %}
                 <link href="lib/tom-select/tom-select.css" rel="stylesheet">
                 <script src="lib/tom-select/tom-select.complete.min.js"></script>
             {%  endif %}
         {% elif cdn_resources=="in_line" %}
-            <style>{%  include 'lib/vis-9.1.2/vis-network.css' %}</style>
-            <script>{%  include 'lib/vis-9.1.2/vis-network.min.js' %}</script>
+            <style>{%  include 'libs/vis-network/10.0.2/dist/dist/vis-network.min.css' %}</style>
+            <script>{%  include 'libs/vis-network/10.0.2/dist/vis-network.min.js' %}</script>
             {% if select_menu or filter_menu %}
                 <style>{%  include 'lib/tom-select/tom-select.css' %}</style>
                 <script>{%  include 'lib/tom-select/tom-select.complete.min.js' %}</script>
             {%  endif %}
         {%  elif cdn_resources=="remote" %}
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-            {#            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.0.4/dist/dist/vis-network.min.css" integrity="sha512-+5tJeVsSE2tSnmKB5SWOD0GsYA5dOP0B/FSv7I2GYhdOcyjJq81Q1St3qgJgInwreAdNuw0KGJ0FOaxOJ0E4yw==" crossorigin="anonymous" referrerpolicy="no-referrer" />#}
-            {#            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.0.4/dist/vis-network.js"#}
-            {#                integrity="sha512-CEbUhbSq35hCqBH8ckfAkH1Tcua5NEywtEzwiJ+BUC4EIZkC7vyta3ivZu/WqJhK1qHTurO3hwHsErU3HHjwIA=="#}
-            {#                crossorigin="anonymous"#}
-            {#                referrerpolicy="no-referrer"></script>#}
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/10.0.2/dist/dist/vis-network.min.css">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/10.0.2/dist/vis-network.min.js"></script>
+
+            {#            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/10.0.2/dist/dist/vis-network.min.css" />#}
+            {#            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/10.0.2/dist/vis-network.min.js" />#}
             {% if select_menu or filter_menu %}
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tom-select/2.0.0-rc.4/css/tom-select.min.css" integrity="sha512-43fHB3GLgZfz8QXl1RPQ8O66oIgv3po9cJ5erMt1c4QISq9dYb195T3vr5ImnJPXuVroKcGBPXBFKETW8jrPNQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/tom-select/2.0.0-rc.4/js/tom-select.complete.js" integrity="sha512-jeF9CfnvzDiw9G9xiksVjxR2lib44Gnovvkv+3CgCG6NXCD4gqlA5nDAVW5WjpA+i+/zKsUWV5xNEbW1X/HH0Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -66,7 +64,7 @@
                  margin:auto auto auto auto;
                  border-radius:11px;
                  border:2px solid rgba(30,30,30,0.05);
-                 background: rgb(0, 173, 246); /* Old browsers */
+                 background: rgb(0, 173, 246); 
                  box-shadow: 2px 0px 4px rgba(0,0,0,0.4);
              }
 
@@ -121,7 +119,7 @@
              {% endif %}
 
              {% if tooltip_link %}
-             /* position absolute is important and the container has to be relative or absolute as well. */
+
           div.popup {
                  position:absolute;
                  top:0px;
@@ -135,7 +133,6 @@
                  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
           }
 
-          /* hide the original tooltip */
           .vis-tooltip {
             display:none;
           }
@@ -152,9 +149,8 @@
                 min-height: 100vh;
             }
             
-                        
             .left-panel {
-                background: #222222a6;
+                background: #4454704f;
                 width: 270px;
                 position: absolute;
                 z-index: 2;
@@ -198,154 +194,250 @@
             }
 
             .search-container {
-              margin-bottom: 3px;
+              margin-bottom: 8px;
               display: flex;
               align-items: center;
-              gap: 3px;
+              gap: 5px;
             }
 
             .search-input {
-              width: 300px;
-              padding: 5px;
-              background-color: white;
-              color: rgb(27, 27, 27);
-              border: 1px solid #ddd;
-              border-radius: 4px;
-              font-size: 16px;
+              flex: 1;
+              min-width: 0;
+              padding: 7px 10px;
+              background: var(--surface);
+              color: var(--text);
+              border: 1px solid var(--border);
+              border-radius: 6px;
+              font-size: 13px;
+              font-family: inherit;
+              outline: none;
+              transition: border-color 0.2s, box-shadow 0.2s;
+            }
+            .search-input::placeholder { color: var(--muted); }
+            .search-input:focus {
+              border-color: var(--accent);
+              box-shadow: 0 0 0 2px rgba(0,229,255,0.15);
             }
 
-            .up-btn {
-              width: 30px;
-              height: 30px;
-              display: flex;
-              background-color: hsl(0, 0%, 65%);
-              color: rgb(255, 255, 255);
-              border: 1px solid hsl(0, 0%, 65%);
-              border-radius: 4px;
-              font-size: 16px;
-              cursor: pointer;
-              display: inline-flex;
-              align-items: center;
-              justify-content: center;
-            }
-            .up-btn:hover {
-              background-color:hsl(0, 0%, 71%);
-            }
-            .up-btn:active {
-              background-color:hsl(0, 0%, 65%);
-            }
-            
+            .up-btn,
             .down-btn {
               width: 30px;
               height: 30px;
-              background-color: hsl(0, 0%, 65%);
-              color: rgb(255, 255, 255);
-              border: 1px solid hsl(0, 0%, 65%);
-              border-radius: 4px;
-              font-size: 16px;
-              box-sizing: border-box;
-              cursor: pointer;
+              flex-shrink: 0;
               display: inline-flex;
               align-items: center;
               justify-content: center;
-            }
-            .down-btn:hover {
-              background-color:hsl(0, 0%, 71%);
-            }
-            .down-btn:active {
-              background-color:hsl(0, 0%, 65%);
-            }
-
-            .physics-btn {
-              font-size: 13px;
-              padding: 9px 9px;
-              margin-bottom: 3px;
-              background-color: hsl(122, 39%, 49%);
-              color: white;
-              border: none;
-              border-radius: 4px;
-              width: 100%;
+              background: var(--surface);
+              color: var(--text);
+              border: 1px solid var(--border);
+              border-radius: 6px;
               cursor: pointer;
+              transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+            }
+            .up-btn:hover,
+            .down-btn:hover {
+              border-color: var(--accent);
+              background: rgba(0,229,255,0.08);
+              box-shadow: 0 0 6px rgba(0,229,255,0.2);
+            }
+            .up-btn:active,
+            .down-btn:active {
+              background: rgba(0,229,255,0.18);
             }
 
-            .physics-btn:hover {
-              background-color:hsl(121, 47%, 57%);
+            .save-btn,
+            .home-btn,
+            .reset-btn {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 6px;
+              width: 100%;
+              padding: 8px 10px;
+              margin-bottom: 5px;
+              font-size: 12px;
+              font-family: inherit;
+              font-weight: 600;
+              letter-spacing: 0.05em;
+              text-transform: uppercase;
+              border: 1px solid transparent;
+              border-radius: 6px;
+              cursor: pointer;
+              transition: background 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.1s;
             }
+            .save-btn:active,
+            .home-btn:active,
+            .reset-btn:active { transform: scale(0.97); }
 
             .save-btn {
-              font-size: 13px;
-              padding: 9px 9px;
-              margin-bottom: 3px;
-              background-color: hsl(194, 42%, 45%);
-              color: white;
-              border: none;
-              border-radius: 4px;
-              width: 100%;
-              cursor: pointer;
+              background: rgba(0,229,255,0.12);
+              color: var(--accent);
+              border-color: rgba(0,229,255,0.35);
+            }
+            .save-btn:hover {
+              background: rgba(0,229,255,0.22);
+              border-color: var(--accent);
+              box-shadow: 0 0 10px rgba(0,229,255,0.25);
             }
 
-            .save-btn:hover {
-              background-color: hsl(194, 41%, 53%);
+            .home-btn {
+              background: var(--surface);
+              color: var(--text);
+              border-color: var(--border);
+            }
+            .home-btn:hover {
+              border-color: var(--accent);
+              background: rgba(0,229,255,0.06);
             }
 
             .reset-btn {
-              font-size: 14px;
-              padding: 9px 9px;
-              margin-bottom: 3px;
-              background-color: hsl(0, 0%, 40%);
-              color: white;
-              border: none;
-              width: 100%;
-              border-radius: 4px;
-              cursor: pointer;
+              background: rgba(255,77,109,0.08);
+              color: #ff7a94;
+              border-color: rgba(255,77,109,0.3);
             }
-
             .reset-btn:hover {
-              background-color: hsl(0, 0%, 50%);
-            }
-            .home-btn {
-                font-size: 13px;
-                padding: 9px 9px;
-                margin-bottom: 3px;
-                background-color: hsl(0, 0%, 65%);
-                color: white;
-                border: none;
-                border-radius: 4px;
-                width: 100%;
-                cursor: pointer;
-              }
-  
-            .home-btn:hover {
-                background-color: hsl(0, 0%, 71%);
+              background: rgba(255,77,109,0.18);
+              border-color: var(--accent2);
+              box-shadow: 0 0 10px rgba(255,77,109,0.2);
             }
 
             input {
-                accent-color: gray;
+                accent-color: var(--accent);
             }
 
             .control-label {
-                opacity: 0.9;
-                top: 0px;
-                left: 0px;
-                font-size: 16px;
-                font-weight: bold;
-                color: #4CAF50;
-                display: block;
-                margin-bottom: 5px;
-                width: 100%;
+              display: flex;
+              align-items: center;
+              font-size: 12px;
+              font-weight: 600;
+              letter-spacing: 0.06em;
+              color: var(--text);
+              margin-bottom: 0px;
+              margin-top: 16px;
+              width: 100%;
             }
 
             input[type="range"] {
-                color: gray;
-                opacity: 0.5;
+                -webkit-appearance: none;
+                appearance: none;
                 width: 100%;
-                height: 10px;
-                background: #d3d3d3;
+                height: 14px; 
+                background: transparent;
+                border-radius: 4px;
                 outline: none;
-                border-radius: 8px;
-                margin-bottom: 6px;
+                cursor: pointer;
+                opacity: 0.85;
+            }
+            input[type="range"]:hover { opacity: 1; }
+
+            input[type="range"]::-webkit-slider-runnable-track {
+                background: linear-gradient(to right, rgba(0,229,255,0.4), var(--border));
+                border-radius: 4px;
+                height: 4px;
             }
 
+            input[type="range"]::-moz-range-track {
+                background: linear-gradient(to right, rgba(0,229,255,0.4), var(--border));
+                border-radius: 4px;
+                height: 4px;
+            }
+            input[type="range"]::-moz-range-thumb:hover {
+                transform: scale(1.25);
+                box-shadow: 0 0 10px rgba(0,229,255,0.75);
+            }
+
+            input[type="range"]::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                appearance: none;
+                width: 14px;
+                height: 14px;
+                border-radius: 50%;
+                background: var(--accent);
+                border: 0px solid var(--bg);
+                box-shadow: 0 0 6px rgba(0,229,255,0.5);
+                margin-top: -5px; /* Centers thumb on track in Webkit */
+            }
+            input[type="range"]::-webkit-slider-thumb:hover {
+              transform: scale(1.25);
+              box-shadow: 0 0 10px rgba(0,229,255,0.75);
+            }
+
+            input[type="range"]::-moz-range-thumb {
+                width: 14px;
+                height: 14px;
+                border-radius: 50%;
+                background: var(--accent);
+                border: 0px solid var(--bg); /* Ensure border doesn't squash the circle */
+                box-shadow: 0 0 6px rgba(0,229,255,0.5);
+                box-sizing: border-box; /* Force border to stay inside the 14px */
+            }
+
+            :root {
+                --bg:       #0d0f14;
+                --surface:  #151820;
+                --border:   #252a35;
+                --accent:   #00e5ff;
+                --accent2:  #ff4d6d;
+                --accent3:  #b3ff5c;
+                --text:     #c8d0e0;
+                --muted:    #555f75;
+            }
+            .toggle-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            }
+
+            .toggle-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: border-color 0.15s, background 0.15s;
+            user-select: none;
+            }
+
+            .toggle-item:hover { border-color: var(--accent); background: rgba(0,229,255,0.04); }
+
+            .toggle-item input[type="checkbox"] { display: none; }
+
+            .toggle-dot {
+            width: 32px;
+            height: 18px;
+            border-radius: 9px;
+            background: var(--border);
+            position: relative;
+            flex-shrink: 0;
+            transition: background 0.2s;
+            }
+
+            .toggle-dot::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--muted);
+            top: 3px;
+            left: 3px;
+            transition: transform 0.2s, background 0.2s;
+            }
+
+            input[type="checkbox"]:checked ~ .toggle-dot { background: rgba(0,229,255,0.2); }
+            input[type="checkbox"]:checked ~ .toggle-dot::after {
+            transform: translateX(14px);
+            background: var(--accent);
+            }
+
+            .toggle-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text);
+            }
+            
         </style>
     </head>
 
@@ -446,10 +538,41 @@
                         </button>
   
                       </div>
-                    <button class="physics-btn" id="btn_physics" >Physics: ON</button>
+
                     <button class="save-btn" id="btn_save_node_positions" >Save</button>
                     <button class="home-btn" id="btn_home_location" >Home</button>
                     <button class="reset-btn" id="btn_reset_preferences" >Reset</button>
+
+                    <div class="toggle-group">
+
+                        <label class="toggle-item">
+                        <input type="checkbox" id="togglePhysics" checked>
+                        <div class="toggle-dot"></div>
+                        <span class="toggle-label">Physics</span>
+                        </label>
+
+                        <label class="toggle-item">
+                        <input type="checkbox" id="toggleTagNodes" unchecked>
+                        <div class="toggle-dot"></div>
+                        <span class="toggle-label">Tags</span>
+                        </label>
+
+                        <label class="toggle-item">
+                        <input type="checkbox" id="toggleFileNodes" checked>
+                        <div class="toggle-dot"></div>
+                        <span class="toggle-label">Nodes</span>
+                        </label>
+
+                        <label class="toggle-item">
+                        <input type="checkbox" id="toggleGrid" checked>
+                        <div class="toggle-dot"></div>
+                        <span class="toggle-label">Grid</span>
+                        </label>
+
+                    </div>
+
+                    <span id="text_gridScale" class="control-label">Grid Scale</span>
+                    <input id="slider_gridScale" type="range" min="10" max="300" value="100"></input>
 
                     <span id="text_gravitationalConstant" class="control-label">
                         Gravitational Constant
@@ -781,27 +904,35 @@
                 var viewState = {};
 
                 var default_preferences = {
+                    "physics": true,
+                    "showTags": false,
+                    "showNodes": true,
+                    "showGrid": true,
+                    "gridScale": 120,
+                    "gravitationalConstant": 437,
                     "centralGravity": 8,
+                    "springConstant": 5,
                     "damping": 20,
+                    "fontSize": 43,
+                    "nodeSize": 11,
                     "edgeLength": 4,
                     "edgeWidth": 6,
-                    "fontSize": 43,
-                    "gravitationalConstant": 437,
-                    "nodeSize": 11,
-                    "physics": true,
-                    "springConstant": 5,
                 };
                 
                 var preferences = {
+                    "physics": true,
+                    "showTags": false,
+                    "showNodes": true,
+                    "showGrid": true,
+                    "gridScale": 120,
+                    "gravitationalConstant": 437,
                     "centralGravity": 8,
+                    "springConstant": 5,
                     "damping": 20,
+                    "fontSize": 43,
+                    "nodeSize": 11,
                     "edgeLength": 4,
                     "edgeWidth": 6,
-                    "fontSize": 43,
-                    "gravitationalConstant": 437,
-                    "nodeSize": 11,
-                    "physics": true,
-                    "springConstant": 5,
                 };
 
                 storedPreferences = localStorage.getItem('preferences');
@@ -830,6 +961,7 @@
                     }
                     toggleSaveNodePositions()
                 });
+
                 function loadViewState(){
                     var savedState = JSON.parse(localStorage.getItem('networkViewState'));
                     if (savedState) {
@@ -843,6 +975,7 @@
                 function saveViewState(){
                     var viewPosition = network.getViewPosition();
                     var scale = network.getScale();
+
                     var viewState = {
                         position: viewPosition,
                         scale: scale
@@ -852,35 +985,6 @@
 
                 function savePreferences(){
                     localStorage.setItem('preferences', JSON.stringify(preferences));
-                }
-
-                function loadPhysics(){
-                    var btn = document.getElementById('btn_physics');
-                    if (preferences.physics == true) {
-                        network.setOptions( { physics: true } );
-                        btn.innerHTML = 'Physics: ON';
-                    } else {
-                        network.setOptions( { physics: false } );
-                        btn.innerHTML = 'Physics: OFF';
-                    }
-                }
-                
-                // Add Button and Slider to Control the Physics 
-                function togglePhysics() {
-                    var btn = document.getElementById('btn_physics');
-                    var physics = !network.physics.options.enabled;
-                    network.physics.enabled = physics;
-                    
-                    if (physics) {
-                        preferences.physics = true;
-                        network.setOptions( { physics: true } );
-                        btn.innerHTML = 'Physics: ON';
-                    } else {
-                        preferences.physics = false;
-                        network.setOptions( { physics: false } );
-                        btn.innerHTML = 'Physics: OFF';
-                    }
-                    savePreferences();
                 }
 
                 // Reset all node highlights
@@ -1011,8 +1115,6 @@
 
                   }
                   
-
-                // TODO New
                 // Get DOM elements
                 const searchInput = document.getElementById('searchInput');
                 searchInput.addEventListener('keyup', function(event) {
@@ -1026,10 +1128,6 @@
 
                 const downButton = document.getElementById("downButton");
                 downButton.addEventListener('click', () => navigateResults('down'));
-
-                // Physics
-                const btn_physics = document.getElementById('btn_physics');
-                btn_physics.onclick = togglePhysics;
                 
                 // Save as Startup
                 const btn_save_node_positions = document.getElementById('btn_save_node_positions');
@@ -1049,6 +1147,124 @@
                 // Reset
                 const btn_reset_preferences = document.getElementById('btn_reset_preferences');
                 btn_reset_preferences.onclick = resetPreferences;
+
+                const chk_physics = document.getElementById('togglePhysics');
+                chk_physics.addEventListener('change', e => {on_toggle_physics(e.target.checked);});
+                
+                function load_physics(){
+                    const chk_physics = document.getElementById('togglePhysics');
+                    chk_physics.checked = preferences.physics;
+                    on_toggle_physics(preferences.physics)
+                }
+
+                // Add Button and Slider to Control the Physics 
+                function on_toggle_physics(physics) {
+                    network.physics.enabled = physics;
+                    network.setOptions( { physics: physics } );
+                    preferences.physics = physics;
+                    savePreferences();
+                }
+
+                const chk_show_tags = document.getElementById('toggleTagNodes');
+                chk_show_tags.addEventListener('change', e => {
+                    on_node_vis_changed('tagnode', e.target.checked);
+                });
+                
+                function load_show_tags(){
+                    const chk_show_tags = document.getElementById('toggleTagNodes');
+                    chk_show_tags.checked = preferences.showTags;
+                    on_node_vis_changed('tagnode', preferences.showTags);
+                }
+
+                const chk_show_nodes = document.getElementById('toggleFileNodes');
+                chk_show_nodes.addEventListener('change', e => {
+                    on_node_vis_changed('filenode', e.target.checked);
+                });
+
+                function load_show_nodes(){
+                    const chk_show_nodes = document.getElementById('toggleFileNodes');
+                    chk_show_nodes.checked = preferences.showNodes;
+                    on_node_vis_changed('filenode', preferences.showNodes);
+                }
+
+                // Store removed edges per nodetype so they can be restored later
+                var removedEdgesByType = {};
+
+                function on_node_vis_changed(nodetype, visible) {
+                    hidden = !visible;
+                    const matched = network.body.data.nodes.get({ filter: n => n.nodetype === nodetype });
+                    network.body.data.nodes.update(matched.map(n => ({ id: n.id, hidden })));
+                    
+                    if (hidden) {
+                        // Collect all edges connected to the hidden nodes
+                        const connectedEdgeIds = new Set(matched.flatMap(n => network.getConnectedEdges(n.id)));
+                        const edgesToRemove = edges.get(Array.from(connectedEdgeIds));
+                        
+                        // Save them keyed by nodetype so we can restore later
+                        if (!removedEdgesByType[nodetype]) removedEdgesByType[nodetype] = [];
+                        edgesToRemove.forEach(e => {
+                            // Avoid duplicates if multiple nodetypes share an edge
+                            if (!removedEdgesByType[nodetype].find(r => r.id === e.id)) {
+                                removedEdgesByType[nodetype].push(e);
+                            }
+                        });
+                        
+                        edges.remove(Array.from(connectedEdgeIds));
+                    } else {
+                        // Restore edges that were removed for this nodetype,
+                        // but only if both endpoint nodes are currently visible
+                        const toRestore = removedEdgesByType[nodetype] || [];
+                        const validEdges = toRestore.filter(e => {
+                            const fromNode = network.body.data.nodes.get(e.from);
+                            const toNode   = network.body.data.nodes.get(e.to);
+                            return fromNode && !fromNode.hidden && toNode && !toNode.hidden;
+                        });
+                        if (validEdges.length > 0) edges.add(validEdges);
+                        removedEdgesByType[nodetype] = [];
+                    }
+
+                    if (nodetype == "filenode"){
+                        preferences.showNodes = visible;
+                    }
+                    else if (nodetype == "tagnode"){
+                        preferences.showTags = visible;
+                    }
+                    savePreferences();
+                }
+                
+                const chk_show_grid = document.getElementById('toggleGrid');
+                chk_show_grid.addEventListener('change', on_grid_changed);
+                
+                const slider_grid_scale = document.getElementById('slider_gridScale')
+                slider_grid_scale.addEventListener('input', on_grid_changed);
+                
+                function load_grid(){
+                    const chk_show_grid = document.getElementById('toggleGrid');
+                    chk_show_grid.checked = preferences.showGrid;
+  
+                    const slider_grid_scale = document.getElementById('slider_gridScale')
+                    slider_grid_scale.value = preferences.gridScale;
+
+                    on_grid_changed();
+                }
+
+                function on_grid_changed() {
+                    const net = document.getElementById('mynetwork');
+                    const visible = document.getElementById('toggleGrid').checked;
+                    if (!visible) { net.style.backgroundImage = 'none'; return; }
+                    const scale = parseInt(document.getElementById('slider_gridScale').value);
+                    const minor = Math.max(2, Math.round(scale / 5));
+                    net.style.backgroundImage = `
+                    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px),
+                    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)`;
+                    net.style.backgroundSize = `${scale}px ${scale}px, ${scale}px ${scale}px, ${minor}px ${minor}px, ${minor}px ${minor}px`;
+                    net.style.backgroundPosition = '-1px -1px, -1px -1px, -1px -1px, -1px -1px';
+                    preferences.showGrid = visible;
+                    preferences.gridScale = scale;
+                    savePreferences();
+                }
 
                 // gravitationalConstant
                 const slider_gravitationalConstant = document.getElementById('slider_gravitationalConstant');
@@ -1170,8 +1386,11 @@
                     on_slider_fontSize_input();
                     on_slider_nodeSize_input();
                     on_slider_edge_input();
-                    loadPhysics();
                     loadViewState();
+                    load_physics();
+                    load_show_nodes();
+                    load_show_tags();
+                    load_grid();
                 }
                 
                 function homeLocation(){
@@ -1184,7 +1403,11 @@
                 }
 
                 function resetPreferences(){
-                    document.getElementById('btn_physics').value = default_preferences.physics;
+
+                    document.getElementById('toggleTagNodes').checked = default_preferences.showTags;
+                    document.getElementById('toggleFileNodes').checked = default_preferences.showNodes;
+                    document.getElementById('toggleGrid').checked = default_preferences.showGrid;
+                    document.getElementById('slider_gridScale').value = default_preferences.gridScale;
                     document.getElementById('slider_gravitationalConstant').value = default_preferences.gravitationalConstant;
                     document.getElementById('slider_centralGravity').value = default_preferences.centralGravity;
                     document.getElementById('slider_springConstant').value = default_preferences.springConstant;
@@ -1207,6 +1430,9 @@
                             if (node.url) {
                                 if (params.event.srcEvent.ctrlKey) {
                                     window.open(node.url, '_blank');
+                                }
+                                else if (params.event.srcEvent.altKey) {
+                                    window.open(node.url2, '_blank');
                                 }else {
                                     window.location.href = node.url;
                                 }
@@ -1222,21 +1448,23 @@
                         scale: viewState.scale
                     });
 
-                    // preferences.physics = true;
-
                     node_positions = {};
                     saveNodePositions();
 
                     preferences = {
+                        "physics": true,
+                        "showTags": false,
+                        "showNodes": true,
+                        "showGrid": true,
+                        "gridScale": 120,
+                        "gravitationalConstant": 437,
                         "centralGravity": 8,
+                        "springConstant": 5,
                         "damping": 20,
+                        "fontSize": 43,
+                        "nodeSize": 11,
                         "edgeLength": 4,
                         "edgeWidth": 6,
-                        "fontSize": 43,
-                        "gravitationalConstant": 437,
-                        "nodeSize": 11,
-                        "physics": true,
-                        "springConstant": 5,
                     };
                     savePreferences();
 
@@ -1245,27 +1473,6 @@
                 
                 loadPreferences();
 
-                  // seet physic on / off by dragStart dragEnd
-                //   network.on("dragStart", function(params) {
-                //       if (params.nodes.length > 0) {
-                //         network.setOptions( { physics: true } );
-                //       }
-                //     });
-
-                //   network.on("dragEnd", function(params) {
-                //       if (params.nodes.length > 0) {
-
-                //         network.setOptions( { physics: false } );
-                      
-                //       }
-                //     });
-
-                //   setTimeout(function() {
-                //     network.setOptions( { physics: false } );
-                //     }, 12000);
-                    
-
-                
 
                   {% if neighborhood_highlight %}
                     network.on("click", neighbourhoodHighlight);

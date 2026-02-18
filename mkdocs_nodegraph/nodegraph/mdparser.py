@@ -52,6 +52,7 @@ class MdParser():
 
     def __init__(self, target_dir):
         self.mdfiles = []
+        self.tags = []
         self.target_dir = target_dir
 
     def parse_md(self, file_name):
@@ -61,8 +62,9 @@ class MdParser():
         title = ""
         metadata = ""
         return MdFile(file_name, base_name, title, links, link_uids, metadata)
-
+    
     def parse(self):
+        tags_dic = dict()
         uid = 1
         for subdir, dirs, files in os.walk(self.target_dir):
             for f in files:
@@ -71,14 +73,20 @@ class MdParser():
 
                     if not any(x for x in self.mdfiles if x.file_path == path):
                         md = self.parse_md(path)
+                        md.uid = uid
+                        self.mdfiles.append(md)
+
                         parseMedata = getMetadata(path)
                         if parseMedata:
                             metadata = yaml.safe_load(parseMedata)
                             md.metadata = metadata
                             
-                        md.uid = uid
+                            if "tags" in metadata:
+                                for tag in metadata["tags"]:
+                                    if tag not in tags_dic:
+                                        tags_dic[tag] = set()
+                                    tags_dic[tag].add(uid)
                         uid += 1
-                        self.mdfiles.append(md)
 
         for mdfile in self.mdfiles:
             uids = set()
@@ -86,10 +94,19 @@ class MdParser():
             for link in mdfile.mdlinks:
                 link_basename = os.path.basename(link)
                 link_new = link.replace("../", "/").replace("./", "").replace("/", "").replace(".", "")
-                uid = list(filter(lambda x: (x.file_path.replace("\\", "").replace("../", "/").replace("./", "").replace("/", "").replace(".", "").endswith(link_new) and os.path.basename(x.file_path) == link_basename), self.mdfiles))
-                if len(uid) > 0:
-                    uids.add(uid[0].uid)
-                    
+                getmdfiles = list(filter(lambda x: (x.file_path.replace("\\", "").replace("../", "/").replace("./", "").replace("/", "").replace(".", "").endswith(link_new) and os.path.basename(x.file_path) == link_basename), self.mdfiles))
+                if len(getmdfiles) > 0:
+                    uids.add(getmdfiles[0].uid)
+
             mdfile.link_uids = list(uids)
-            
-        return self.mdfiles
+        
+        if tags_dic:
+            for tag, link_uids in tags_dic.items():
+                self.tags.append({
+                    'name': tag,
+                    'uid': uid,
+                    'link_uids': link_uids
+                })
+                uid += 1
+
+        return self.mdfiles, self.tags
