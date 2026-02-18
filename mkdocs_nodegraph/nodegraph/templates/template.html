@@ -321,8 +321,8 @@
                 -webkit-appearance: none;
                 appearance: none;
                 width: 100%;
-                height: 14px; /* match thumb height so centering works */
-                background: transparent; /* move track bg to the track pseudo-element */
+                height: 14px; 
+                background: transparent; 
                 border-radius: 4px;
                 outline: none;
                 margin-bottom: 0;
@@ -330,12 +330,12 @@
                 transition: opacity 0.2s;
                 opacity: 0.85;
             }
+            input[type="range"]:hover { opacity: 1; }
 
             input[type="range"]::-webkit-slider-runnable-track {
                 background: linear-gradient(to right, rgba(0,229,255,0.4), var(--border));
                 border-radius: 4px;
                 height: 4px;
-                /* center the 4px track within the 14px input height */
                 margin-block: auto;
             }
 
@@ -350,10 +350,13 @@
                 box-shadow: 0 0 6px rgba(0,229,255,0.5);
                 cursor: pointer;
                 transition: transform 0.15s, box-shadow 0.15s;
-                /* pull thumb up to center on the 4px track */
                 margin-top: -5px;
             }
-
+            input[type="range"]::-webkit-slider-thumb:hover {
+              transform: scale(1.25);
+              box-shadow: 0 0 10px rgba(0,229,255,0.75);
+            }
+            
             :root {
                 --bg:       #0d0f14;
                 --surface:  #151820;
