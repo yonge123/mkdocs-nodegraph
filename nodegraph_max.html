@@ -871,29 +871,69 @@
                 // Store removed edges per nodetype so they can be restored later
                 var removedEdgesByType = {};
 
+                // Store for fully removed tag nodes and their edges (remove/insert approach)
+                var tagNodesStore = { nodes: [], edges: [] };
+
                 function on_node_vis_changed(nodetype, visible) {
-                    hidden = !visible;
+
+                    // 式式 TAG NODES: fully remove from / re-insert into the DataSets 式式
+                    if (nodetype === 'tagnode') {
+                        if (!visible) {
+                            // Collect all current tag nodes
+                            const tagNodes = nodes.get({ filter: n => n.nodetype === 'tagnode' });
+                            if (tagNodes.length === 0) return;
+
+                            // Collect all edges connected to those tag nodes
+                            const connectedEdgeIds = new Set(
+                                tagNodes.flatMap(n => network.getConnectedEdges(n.id))
+                            );
+                            const tagEdges = edges.get(Array.from(connectedEdgeIds));
+
+                            // Persist before removal
+                            tagNodesStore.nodes = tagNodes;
+                            tagNodesStore.edges = tagEdges;
+
+                            // Remove edges first, then nodes
+                            edges.remove(Array.from(connectedEdgeIds));
+                            nodes.remove(tagNodes.map(n => n.id));
+                        } else {
+                            // Re-insert stored tag nodes
+                            if (tagNodesStore.nodes.length > 0) {
+                                nodes.add(tagNodesStore.nodes);
+                            }
+                            // Re-insert edges whose both endpoints are present and visible
+                            if (tagNodesStore.edges.length > 0) {
+                                const validEdges = tagNodesStore.edges.filter(e => {
+                                    const fromNode = nodes.get(e.from);
+                                    const toNode   = nodes.get(e.to);
+                                    return fromNode && !fromNode.hidden && toNode && !toNode.hidden;
+                                });
+                                if (validEdges.length > 0) edges.add(validEdges);
+                            }
+                            tagNodesStore = { nodes: [], edges: [] };
+                        }
+                        preferences.showTags = visible;
+                        savePreferences();
+                        return;
+                    }
+
+                    // 式式 FILE NODES: hide/show in place (existing behaviour) 式式
+                    const hidden = !visible;
                     const matched = network.body.data.nodes.get({ filter: n => n.nodetype === nodetype });
                     network.body.data.nodes.update(matched.map(n => ({ id: n.id, hidden })));
-                    
+
                     if (hidden) {
-                        // Collect all edges connected to the hidden nodes
                         const connectedEdgeIds = new Set(matched.flatMap(n => network.getConnectedEdges(n.id)));
                         const edgesToRemove = edges.get(Array.from(connectedEdgeIds));
-                        
-                        // Save them keyed by nodetype so we can restore later
+
                         if (!removedEdgesByType[nodetype]) removedEdgesByType[nodetype] = [];
                         edgesToRemove.forEach(e => {
-                            // Avoid duplicates if multiple nodetypes share an edge
                             if (!removedEdgesByType[nodetype].find(r => r.id === e.id)) {
                                 removedEdgesByType[nodetype].push(e);
                             }
                         });
-                        
                         edges.remove(Array.from(connectedEdgeIds));
                     } else {
-                        // Restore edges that were removed for this nodetype,
-                        // but only if both endpoint nodes are currently visible
                         const toRestore = removedEdgesByType[nodetype] || [];
                         const validEdges = toRestore.filter(e => {
                             const fromNode = network.body.data.nodes.get(e.from);
@@ -904,11 +944,8 @@
                         removedEdgesByType[nodetype] = [];
                     }
 
-                    if (nodetype == "filenode"){
+                    if (nodetype === 'filenode') {
                         preferences.showNodes = visible;
-                    }
-                    else if (nodetype == "tagnode"){
-                        preferences.showTags = visible;
                     }
                     savePreferences();
                 }
