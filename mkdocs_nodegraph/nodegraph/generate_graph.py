@@ -321,8 +321,12 @@ def rebuild_graph_html(index_path, graph_path, output_path=None):
     with open(index_path, 'r', encoding='utf-8') as f:
         index_content = f.read()
     
-    with open(graph_path, 'r', encoding='utf-8') as f:
-        graph_content = f.read()
+    try:
+        with open(graph_path, 'r', encoding='utf-8') as f:
+            graph_content = f.read()
+    except UnicodeDecodeError:
+        with open(graph_path, 'r', encoding='latin-1') as f:
+            graph_content = f.read()
     
     # Find and extract article content
     article_pattern = r'<article class="md-content__inner md-typeset">.*?</article>'
